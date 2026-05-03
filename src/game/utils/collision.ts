@@ -1,6 +1,6 @@
 import { worldBounds, type RectCollider, type Vec2 } from '../config/world';
 
-const playerRadius = 0.42;
+const playerRadius = 0.3;
 
 export function resolvePlayerCollision(position: Vec2, colliders: RectCollider[]): Vec2 {
   let resolved = {

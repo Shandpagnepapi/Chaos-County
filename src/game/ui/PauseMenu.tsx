@@ -61,8 +61,8 @@ export function PauseMenu() {
         {pausePanel === 'controls' ? (
           <div className="pause-info">
             <h2>Controls</h2>
-            <p><strong>Desktop:</strong> WASD or arrow keys to move, E to talk or use, Escape/Tab for this menu.</p>
-            <p><strong>Mobile:</strong> use the left thumbstick and the Talk/Use button when a prompt appears.</p>
+            <p><strong>Desktop:</strong> WASD or arrow keys move relative to the camera, drag to orbit, mouse wheel zooms, E talks or uses, Escape/Tab opens this menu.</p>
+            <p><strong>Mobile:</strong> left thumbstick moves, swipe the open right side to rotate the camera, and use Talk/Use when a prompt appears.</p>
             <p>Follow the amber guidance marker for the next person, place, or weird object the county needs handled.</p>
             <button className="menu-button" onClick={() => setPausePanel('menu')}>Back</button>
           </div>

@@ -43,6 +43,12 @@ export interface RewardPanelState {
 export type ScreenMode = 'start' | 'playing';
 export type PausePanel = 'menu' | 'event-board' | 'controls' | 'credits';
 
+export interface CameraOrbitState {
+  yaw: number;
+  pitch: number;
+  distance: number;
+}
+
 interface GameState {
   screen: ScreenMode;
   hasExistingSave: boolean;
@@ -50,6 +56,7 @@ interface GameState {
   progressByEvent: Partial<Record<EventId, EventProgress>>;
   playerPosition: Vec2;
   mobileInput: Vec2;
+  cameraOrbit: CameraOrbitState;
   coins: number;
   unlockedCosmetics: string[];
   earnedBadges: string[];
@@ -65,6 +72,8 @@ interface GameState {
   setActiveEvent: (eventId: EventId) => void;
   setPlayerPosition: (position: Vec2) => void;
   setMobileInput: (input: Vec2) => void;
+  setCameraOrbit: (orbit: Partial<CameraOrbitState>) => void;
+  nudgeCameraOrbit: (delta: Partial<CameraOrbitState>) => void;
   setNearestNpc: (npcId?: NpcId) => void;
   setNearestZone: (zoneId?: string) => void;
   interact: () => void;
@@ -209,6 +218,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   progressByEvent: initialSave.progressByEvent,
   playerPosition: initialSave.playerPosition,
   mobileInput: { x: 0, z: 0 },
+  cameraOrbit: { yaw: 0.62, pitch: 0.38, distance: 12.4 },
   coins: initialSave.coins,
   unlockedCosmetics: initialSave.unlockedCosmetics,
   earnedBadges: initialSave.earnedBadges,
@@ -276,6 +286,23 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   setPlayerPosition: (playerPosition) => set({ playerPosition }),
   setMobileInput: (mobileInput) => set({ mobileInput }),
+  setCameraOrbit: (cameraOrbit) => {
+    set((state) => ({
+      cameraOrbit: {
+        ...state.cameraOrbit,
+        ...cameraOrbit
+      }
+    }));
+  },
+  nudgeCameraOrbit: (delta) => {
+    set((state) => ({
+      cameraOrbit: {
+        yaw: state.cameraOrbit.yaw + (delta.yaw ?? 0),
+        pitch: Math.min(0.58, Math.max(0.28, state.cameraOrbit.pitch + (delta.pitch ?? 0))),
+        distance: Math.min(16, Math.max(8.5, state.cameraOrbit.distance + (delta.distance ?? 0)))
+      }
+    }));
+  },
   setNearestNpc: (nearestNpcId) => set({ nearestNpcId }),
   setNearestZone: (nearestZoneId) => set({ nearestZoneId }),
 

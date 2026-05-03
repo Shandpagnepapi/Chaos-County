@@ -44,6 +44,7 @@ button {
 .game-canvas {
   position: absolute;
   inset: 0;
+  touch-action: none;
 }
 
 .ui-layer {

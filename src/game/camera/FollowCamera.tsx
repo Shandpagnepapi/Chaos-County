@@ -3,19 +3,24 @@ import { MathUtils, PerspectiveCamera, Vector3 } from 'three';
 import { useRef } from 'react';
 import { useGameStore } from '../state/gameStore';
 
-const cameraOffsetDesktop = new Vector3(5.9, 3.95, 8.7);
-const cameraOffsetMobile = new Vector3(6.7, 4.45, 9.6);
 const lookOffset = new Vector3(0, 0.55, 0);
 
 export function FollowCamera() {
   const { camera, size } = useThree();
   const playerPosition = useGameStore((state) => state.playerPosition);
+  const cameraOrbit = useGameStore((state) => state.cameraOrbit);
   const lastPosition = useRef(new Vector3(playerPosition.x, 0, playerPosition.z));
   const lookAhead = useRef(new Vector3());
 
   useFrame((_, delta) => {
     const mobile = size.width < 760;
-    const offset = mobile ? cameraOffsetMobile : cameraOffsetDesktop;
+    const distance = mobile ? Math.max(11, cameraOrbit.distance) : cameraOrbit.distance;
+    const horizontalDistance = Math.cos(cameraOrbit.pitch) * distance;
+    const offset = new Vector3(
+      Math.sin(cameraOrbit.yaw) * horizontalDistance,
+      Math.sin(cameraOrbit.pitch) * distance,
+      Math.cos(cameraOrbit.yaw) * horizontalDistance
+    );
     const target = new Vector3(playerPosition.x, 0, playerPosition.z);
     const velocity = target.clone().sub(lastPosition.current);
     lastPosition.current.copy(target);
@@ -28,10 +33,10 @@ export function FollowCamera() {
 
     const desired = target.clone().add(offset).add(lookAhead.current.clone().multiplyScalar(0.42));
     camera.position.lerp(desired, 1 - Math.pow(0.004, delta));
-    camera.lookAt(target.clone().add(lookOffset).add(lookAhead.current));
+    camera.lookAt(target.clone().add(lookOffset).add(lookAhead.current.clone().multiplyScalar(0.82)));
 
     if (camera instanceof PerspectiveCamera) {
-      const desiredFov = mobile ? 52 : 50;
+      const desiredFov = mobile ? 51 : 49;
       camera.fov = MathUtils.lerp(camera.fov, desiredFov, 1 - Math.pow(0.02, delta));
       camera.updateProjectionMatrix();
     }

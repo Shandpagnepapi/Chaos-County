@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Collectibles } from '../items/Collectibles';
 import { NPCs } from '../npc/NPCs';
+import { CameraOrbitControls } from '../camera/CameraOrbitControls';
 import { FollowCamera } from '../camera/FollowCamera';
 import { GuidanceMarker } from '../ui/GuidanceMarker';
 import { Player } from '../player/Player';
@@ -22,6 +23,7 @@ export function GameScene() {
       <Collectibles />
       <GuidanceMarker />
       <Player />
+      <CameraOrbitControls />
       <FollowCamera />
     </>
   );

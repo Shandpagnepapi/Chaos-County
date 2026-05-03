@@ -1,7 +1,6 @@
 import { Clone, Html, useGLTF } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import type { Group, Mesh, Object3D } from 'three';
-import { MathUtils } from 'three';
 import { EventCosmetic } from '../items/EventCosmetic';
 
 interface BlockyCharacterProps {
@@ -67,5 +66,7 @@ export function rotationFromVelocity(current: number, velocity: { x: number; z: 
     return current;
   }
 
-  return MathUtils.lerp(current, Math.atan2(velocity.x, velocity.z), 0.28);
+  const target = Math.atan2(velocity.x, velocity.z);
+  const delta = Math.atan2(Math.sin(target - current), Math.cos(target - current));
+  return current + delta * 0.3;
 }
