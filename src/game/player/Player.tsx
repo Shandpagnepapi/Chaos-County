@@ -24,6 +24,7 @@ export function Player() {
   const setNearestZone = useGameStore((state) => state.setNearestZone);
   const mobileInput = useGameStore((state) => state.mobileInput);
   const dialogue = useGameStore((state) => state.dialogue);
+  const pausePanel = useGameStore((state) => state.pausePanel);
   const unlockedCosmetics = useGameStore((state) => state.unlockedCosmetics);
   const activeEventId = useGameStore((state) => state.activeEventId);
   const activeEvent = getEventConfig(activeEventId);
@@ -44,7 +45,7 @@ export function Player() {
     };
     const length = Math.hypot(rawInput.x, rawInput.z);
     const input = length > 1 ? { x: rawInput.x / length, z: rawInput.z / length } : rawInput;
-    const canMove = !dialogue && Math.hypot(input.x, input.z) > 0.001;
+    const canMove = !dialogue && !pausePanel && Math.hypot(input.x, input.z) > 0.001;
     const velocity = canMove ? { x: input.x * moveSpeed, z: input.z * moveSpeed } : { x: 0, z: 0 };
 
     const nextPosition: Vec2 = resolvePlayerCollision(

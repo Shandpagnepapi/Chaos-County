@@ -8,6 +8,7 @@ export function useKeyboardInput() {
   const interact = useGameStore((state) => state.interact);
   const closeDialogue = useGameStore((state) => state.closeDialogue);
   const dialogue = useGameStore((state) => state.dialogue);
+  const togglePause = useGameStore((state) => state.togglePause);
   const inputRef = useRef<Vec2>({ x: 0, z: 0 });
 
   useEffect(() => {
@@ -20,6 +21,8 @@ export function useKeyboardInput() {
         event.preventDefault();
         if (dialogue) {
           closeDialogue();
+        } else {
+          togglePause();
         }
       }
     };
@@ -34,7 +37,7 @@ export function useKeyboardInput() {
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('keyup', onKeyUp);
     };
-  }, [closeDialogue, dialogue, interact]);
+  }, [closeDialogue, dialogue, interact, togglePause]);
 
   inputRef.current = {
     x: Number(keys.has('d') || keys.has('arrowright')) - Number(keys.has('a') || keys.has('arrowleft')),

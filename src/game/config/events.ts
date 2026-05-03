@@ -147,6 +147,7 @@ export interface EventConfig {
   name: string;
   subtitle: string;
   description: string;
+  introLore: string;
   mainNpcId: NpcId;
   primaryCollectibleType: CollectibleType;
   requiredCount: number;
@@ -162,6 +163,7 @@ export interface EventConfig {
   completionScreen: {
     title: string;
     body: string;
+    reaction: string;
   };
 }
 
@@ -311,6 +313,8 @@ export const gasStationGoblinPanic: EventConfig = {
   subtitle: 'A limited-time Algorithm disaster',
   description:
     'A weird gas station goblin stole snack bags from Big Dale and scattered them around Chaos County.',
+  introLore:
+    'Chaos County keeps a handwritten list of Algorithm incidents behind the gas station register. Tonight, the ink smells like nacho cheese, the streetlights are flickering in hashtags, and Big Dale is already reaching for the emergency snack clipboard.',
   mainNpcId: 'big-dale',
   primaryCollectibleType: 'snack_bag',
   requiredCount: 10,
@@ -327,7 +331,7 @@ export const gasStationGoblinPanic: EventConfig = {
       npcId: 'big-dale',
       objective: 'Talk to Big Dale at Dale Mart.',
       dialogue:
-        'Listen, friend. The Gas Station Goblin cleaned out my snack rack and ran giggling into the neighborhood. Bring back 10 stolen snack bags and I will make it worth your while.'
+        'Listen, friend. The Gas Station Goblin cleaned out my snack rack and ran giggling into the neighborhood. Bring back 10 stolen snack bags and I will make it worth your while. Last week the Algorithm made my ice machine predict birthdays, so I am handling this one early.'
     },
     {
       id: 'collect-snacks',
@@ -355,23 +359,24 @@ export const gasStationGoblinPanic: EventConfig = {
   eventNpcs: [],
   dialogue: {
     start:
-      'Listen, friend. The Gas Station Goblin cleaned out my snack rack and ran giggling into the neighborhood. Bring back 10 stolen snack bags and I will make it worth your while.',
+      'Listen, friend. The Gas Station Goblin cleaned out my snack rack and ran giggling into the neighborhood. Bring back 10 stolen snack bags and I will make it worth your while. Last week the Algorithm made my ice machine predict birthdays, so I am handling this one early.',
     active:
-      'Those snack bags are still out there. Check driveways, back lots, fences, and anywhere a goblin would think was hilarious.',
+      'Those snack bags are still out there. Check driveways, back lots, fences, and anywhere a goblin would think was hilarious. If you hear tiny chewing, do not negotiate.',
     ready:
       'You found all 10? Bless this county and its suspiciously useful hero. Come collect your reward.',
     completed:
-      'The shelves are safe again. You earned 100 coins and the Goblin Hat. I will pretend that hat is normal.',
+      'The shelves are safe again. You earned 100 coins and the Goblin Hat. I will pretend that hat is normal, which is how this town survives.',
     npcLines: {
       'tammy-two-phones':
-        'My left phone says the goblin is real. My right phone says he has a brand strategy. Both are ringing.',
+        'My left phone says the goblin is real. My right phone says he has a brand strategy. Both are ringing, and neither one has apologized for last week.',
       'mayor-buck':
-        'Everything is under control. I have appointed a snack advisory committee and given it a very sturdy clipboard.'
+        'Everything is under control. I have appointed a snack advisory committee and given it a very sturdy clipboard. The Algorithm respects forms, probably.'
     }
   },
   completionScreen: {
     title: 'Snack Shelves Saved',
-    body: 'You returned Big Dale\'s stolen snack bags and calmed the county for now.'
+    body: 'You returned Big Dale\'s stolen snack bags and calmed the county for now.',
+    reaction: 'Tammy is already posting a blurry hat photo, and Mayor Buck has declared the snack aisle a temporary heritage site.'
   }
 };
 
@@ -383,6 +388,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
     subtitle: 'Nobody ordered this much sky mail',
     description:
       'Suspicious delivery drones are hovering over the gas station and dropping mystery packages across town.',
+    introLore:
+      'The Algorithm found the county shipping database and started improvising. Now Dale Mart has a buzzing ceiling, Tammy has a sky conspiracy thread, and Mayor Buck has asked everyone to remain calm beneath the suspicious packages.',
     mainNpcId: 'big-dale',
     primaryCollectibleType: 'mystery_package',
     requiredCount: 8,
@@ -399,7 +406,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         type: 'talk',
         npcId: 'big-dale',
         objective: 'Talk to Big Dale about the drones.',
-        dialogue: "Nobody ordered 47 boxes of off-brand phone chargers. That's how they get ya."
+        dialogue:
+          "Nobody ordered 47 boxes of off-brand phone chargers. That's how they get ya. First it is drones, then it is coupons that know your middle name."
       },
       {
         id: 'collect-packages',
@@ -422,7 +430,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         type: 'return',
         npcId: 'big-dale',
         objective: 'Return to Big Dale.',
-        dialogue: 'Good. Now place this signal jammer behind the gas station before a toaster gets delivered to my roof.'
+        dialogue:
+          'Good. Now place this signal jammer behind the gas station before a toaster gets delivered to my roof. The Algorithm hates a confident metal box.'
       },
       {
         id: 'place-jammer',
@@ -458,18 +467,25 @@ export const eventConfigs: Record<EventId, EventConfig> = {
     ],
     eventNpcs: [],
     dialogue: {
-      start: "Nobody ordered 47 boxes of off-brand phone chargers. That's how they get ya.",
-      active: 'The sky is buzzing and my snack aisle is emotionally unavailable.',
+      start:
+        "Nobody ordered 47 boxes of off-brand phone chargers. That's how they get ya. First it is drones, then it is coupons that know your middle name.",
+      active:
+        'The sky is buzzing and my snack aisle is emotionally unavailable. Grab packages, batteries, and anything humming with bad intent.',
       ready: 'Bring those batteries here. We are grounding the county with science and suspicion.',
-      completed: 'Airspace is clear. The Tin Foil Cap is yours. Do not let it touch the microwave.',
+      completed:
+        'Airspace is clear. The Tin Foil Cap is yours. Do not let it touch the microwave. Or Tammy\'s left phone.',
       npcLines: {
-        'tammy-two-phones': "I saw one drone wink at me. Drones don't have eyes, but I know what I saw.",
-        'mayor-buck': 'The town has full control of the sky situation. Please do not look up.'
+        'tammy-two-phones':
+          "I saw one drone wink at me. Drones don't have eyes, but I know what I saw. I am calling this one #SkyOops.",
+        'mayor-buck':
+          'The town has full control of the sky situation. Please do not look up. That is not a law, but it is advice with official stationery.'
       }
     },
     completionScreen: {
       title: 'Airspace Defended',
-      body: 'The drones left Dale Mart alone, and the county has learned absolutely nothing about online shipping.'
+      body: 'The drones left Dale Mart alone, and the county has learned absolutely nothing about online shipping.',
+      reaction:
+        'Big Dale taped a thank-you note to the jammer, and Tammy is insisting the drones now follow her private account.'
     }
   },
   'great-yard-sale-stampede': {
@@ -478,6 +494,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
     subtitle: 'One cursed recliner, many bad decisions',
     description:
       'Tammy posted about a possibly haunted recliner, and the whole town is digging through yard sales.',
+    introLore:
+      'Every Saturday, Chaos County pretends it is normal by selling lamps on card tables. Then the Algorithm boosts one rumor about a cursed recliner, and suddenly every driveway becomes a treasure hunt with emotional consequences.',
     mainNpcId: 'tammy-two-phones',
     primaryCollectibleType: 'yard_sale_sticker',
     requiredCount: 12,
@@ -494,7 +512,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         type: 'talk',
         npcId: 'tammy-two-phones',
         objective: 'Talk to Tammy near the neighborhood.',
-        dialogue: 'I said it MIGHT be haunted. People really need to start reading the second half of my posts.'
+        dialogue:
+          'I said it MIGHT be haunted. People really need to start reading the second half of my posts. The Algorithm clipped the cautious part again.'
       },
       {
         id: 'inspect-yard-sales',
@@ -533,7 +552,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         type: 'return',
         npcId: 'tammy-two-phones',
         objective: 'Return to Tammy.',
-        dialogue: 'So the recliner is real, lightly cursed, and honestly pretty comfy. That is content.'
+        dialogue:
+          'So the recliner is real, lightly cursed, and honestly pretty comfy. That is content. Also possibly evidence. Mostly content.'
       }
     ],
     collectibleDefinitions: commonDefinitions,
@@ -559,18 +579,25 @@ export const eventConfigs: Record<EventId, EventConfig> = {
     ],
     eventNpcs: [],
     dialogue: {
-      start: 'I said it MIGHT be haunted. People really need to start reading the second half of my posts.',
-      active: 'Check the yard sales before someone tries to haggle with an antique that blinks.',
+      start:
+        'I said it MIGHT be haunted. People really need to start reading the second half of my posts. The Algorithm clipped the cautious part again.',
+      active:
+        'Check the yard sales before someone tries to haggle with an antique that blinks. Stickers first, questions later.',
       ready: 'You found the recliner? Tell me it did not choose a new owner.',
-      completed: 'Great news: everyone is embarrassed and I have already drafted a follow-up post.',
+      completed:
+        'Great news: everyone is embarrassed and I have already drafted a follow-up post called Things I Never Said But Technically Started.',
       npcLines: {
-        'big-dale': 'Never trust a recliner with cupholders and a history.',
-        'mayor-buck': 'All yard sales are currently considered emotionally unstable.'
+        'big-dale':
+          'Never trust a recliner with cupholders and a history. I learned that during the Algorithm futon incident.',
+        'mayor-buck':
+          'All yard sales are currently considered emotionally unstable. The county recommends exact change and deep breathing.'
       }
     },
     completionScreen: {
       title: 'Bargain Crisis Contained',
-      body: 'The cursed recliner has been identified, priced, and politely removed from the rumor cycle.'
+      body: 'The cursed recliner has been identified, priced, and politely removed from the rumor cycle.',
+      reaction:
+        'Tammy marked the post as resolved, which in Chaos County means everyone has twelve new theories.'
     }
   },
   'raccoon-union-strike': {
@@ -579,6 +606,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
     subtitle: 'A very serious trash labor dispute',
     description:
       'The town raccoons have unionized and blocked the trash pickup route until leftovers improve.',
+    introLore:
+      'After three Algorithm disasters in one month, even the nighttime trash crowd got organized. Mayor Buck says this is a civic challenge. The tiny podium near the woods gate suggests it is also a press conference.',
     mainNpcId: 'mayor-buck',
     primaryCollectibleType: 'shiny_bottle_cap',
     requiredCount: 10,
@@ -595,7 +624,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         type: 'talk',
         npcId: 'mayor-buck',
         objective: 'Talk to Mayor Buck at Town Hall.',
-        dialogue: 'I support workers. I just did not know that included raccoons with clipboards.'
+        dialogue:
+          'I support workers. I just did not know that included raccoons with clipboards. The Algorithm has widened the definition of town staff.'
       },
       {
         id: 'visit-trash-spots',
@@ -641,7 +671,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         type: 'return',
         npcId: 'mayor-buck',
         objective: 'Return to Mayor Buck.',
-        dialogue: 'Excellent. I will issue a proclamation recognizing nighttime as a valid shift.'
+        dialogue:
+          'Excellent. I will issue a proclamation recognizing nighttime as a valid shift. Please do not ask who funds the tiny dental plan.'
       }
     ],
     collectibleDefinitions: commonDefinitions,
@@ -677,18 +708,25 @@ export const eventConfigs: Record<EventId, EventConfig> = {
       }
     ],
     dialogue: {
-      start: 'I support workers. I just did not know that included raccoons with clipboards.',
-      active: 'Please resolve this before the sanitation department asks for a mediator.',
+      start:
+        'I support workers. I just did not know that included raccoons with clipboards. The Algorithm has widened the definition of town staff.',
+      active:
+        'Please resolve this before the sanitation department asks for a mediator. Gather shiny caps and premium leftovers with diplomatic posture.',
       ready: 'The union is listening. Be respectful, and do not mention the word pest.',
-      completed: 'The trash route is moving again, and I have learned a great deal about collective bargaining.',
+      completed:
+        'The trash route is moving again, and I have learned a great deal about collective bargaining, mostly from a clipboard I am afraid to touch.',
       npcLines: {
-        'tammy-two-phones': 'I respect the movement. I just want my trash can back.',
-        'big-dale': 'I have never seen a strike line move that quietly.'
+        'tammy-two-phones':
+          'I respect the movement. I just want my trash can back. Their social media rollout is honestly disciplined.',
+        'big-dale':
+          'I have never seen a strike line move that quietly. Last week\'s goblin had less organizational structure.'
       }
     },
     completionScreen: {
       title: 'Agreement Reached',
-      body: 'Trash pickup resumed after a historic agreement involving leftovers, bottle caps, and official nighttime recognition.'
+      body: 'Trash pickup resumed after a historic agreement involving leftovers, bottle caps, and official nighttime recognition.',
+      reaction:
+        'Mayor Buck filed the agreement under Wildlife, Labor, and Probably The Algorithm Again.'
     }
   },
   'influencer-apology-tour': {
@@ -697,6 +735,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
     subtitle: 'A crisis with 312 followers',
     description:
       'Chad Thunder lost the props for a redo of his apology video, and Tammy wants the situation contained.',
+    introLore:
+      'The Algorithm loves apologies almost as much as it loves making the gas station weird. Chad Thunder stepped in front of pump three with a ring light, three rehearsed sighs, and no idea why the town was watching.',
     mainNpcId: 'tammy-two-phones',
     primaryCollectibleType: 'ring_light_piece',
     requiredCount: 5,
@@ -713,14 +753,16 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         type: 'talk',
         npcId: 'tammy-two-phones',
         objective: 'Talk to Tammy Two-Phones.',
-        dialogue: 'He has 312 followers and a manager. That is how you know it is serious.'
+        dialogue:
+          'He has 312 followers and a manager. That is how you know it is serious. The Algorithm smells sincerity like popcorn.'
       },
       {
         id: 'find-chad',
         type: 'talk',
         npcId: 'chad-thunder',
         objective: 'Find Chad Thunder near the gas station.',
-        dialogue: 'I want to take full accountability for whatever everyone says I did.'
+        dialogue:
+          'I want to take full accountability for whatever everyone says I did. I also want the lighting to suggest personal growth.'
       },
       {
         id: 'collect-ring-lights',
@@ -751,7 +793,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         type: 'return',
         npcId: 'chad-thunder',
         objective: 'Bring everything back to Chad.',
-        dialogue: 'Perfect. Now help me choose a tone that says growth, but also sponsorship-ready.'
+        dialogue:
+          'Perfect. Now help me choose a tone that says growth, but also sponsorship-ready. My manager says the county deserves closure and a thumbnail.'
       },
       {
         id: 'choose-apology',
@@ -801,18 +844,25 @@ export const eventConfigs: Record<EventId, EventConfig> = {
       }
     ],
     dialogue: {
-      start: 'He has 312 followers and a manager. That is how you know it is serious.',
-      active: 'Find his gear before he records a second apology for losing the first apology.',
+      start:
+        'He has 312 followers and a manager. That is how you know it is serious. The Algorithm smells sincerity like popcorn.',
+      active:
+        'Find his gear before he records a second apology for losing the first apology. Check the back lot for anything suspiciously branded.',
       ready: 'Chad is ready to say words near a camera. That is usually where the trouble starts.',
-      completed: 'That apology had layers. I am not saying they were good layers, but they were layers.',
+      completed:
+        'That apology had layers. I am not saying they were good layers, but they were layers. Chaos County will discuss them at dinner.',
       npcLines: {
-        'big-dale': 'He apologized in front of pump three. That pump has seen enough.',
-        'mayor-buck': 'I support accountability, especially when someone else understands the situation.'
+        'big-dale':
+          'He apologized in front of pump three. That pump has seen enough. It still has feelings from the drone thing.',
+        'mayor-buck':
+          'I support accountability, especially when someone else understands the situation. My statement is currently in draft.'
       }
     },
     completionScreen: {
       title: 'Apology Uploaded',
-      body: 'Chad Thunder has released a new statement, and Chaos County has chosen to move on for at least eleven minutes.'
+      body: 'Chad Thunder has released a new statement, and Chaos County has chosen to move on for at least eleven minutes.',
+      reaction:
+        'Tammy clipped the confusing part, Big Dale banned tripods from pump three, and Chad called it a healing arc.'
     }
   },
   'mysterious-sinkhole-behind-the-mini-mart': {
@@ -821,6 +871,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
     subtitle: 'Probably decorative. Probably.',
     description:
       'A glowing sinkhole opened behind the gas station, and strange objects keep popping out of it.',
+    introLore:
+      'Behind Dale Mart, the pavement has started glowing like the Algorithm dropped a moon under the asphalt. The town insists it is fine because the alternative requires a subcommittee and better cones.',
     mainNpcId: 'big-dale',
     primaryCollectibleType: 'strange_rock',
     requiredCount: 7,
@@ -837,7 +889,8 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         type: 'talk',
         npcId: 'big-dale',
         objective: 'Talk to Big Dale behind the gas station.',
-        dialogue: 'I am not saying the hole is alive. I am saying it coughed up my old lunchbox.'
+        dialogue:
+          'I am not saying the hole is alive. I am saying it coughed up my old lunchbox. It had my name on it and a note that said unsubscribe.'
       },
       {
         id: 'investigate-sinkhole',
@@ -876,14 +929,16 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         type: 'talk',
         npcId: 'mayor-buck',
         objective: 'Talk to Mayor Buck.',
-        dialogue: 'The hole has been reviewed and is currently classified as mostly decorative.'
+        dialogue:
+          'The hole has been reviewed and is currently classified as mostly decorative. That classification expires if it starts humming again.'
       },
       {
         id: 'return-dale-sinkhole',
         type: 'return',
         npcId: 'big-dale',
         objective: 'Return to Big Dale.',
-        dialogue: 'Good work. If the hole asks for a rewards card, you did not hear it from me.'
+        dialogue:
+          'Good work. If the hole asks for a rewards card, you did not hear it from me. The Algorithm already gets enough points.'
       }
     ],
     collectibleDefinitions: commonDefinitions,
@@ -906,19 +961,25 @@ export const eventConfigs: Record<EventId, EventConfig> = {
     ],
     eventNpcs: [],
     dialogue: {
-      start: 'I am not saying the hole is alive. I am saying it coughed up my old lunchbox.',
-      active: 'The back lot is glowing again. Please make the glowing less legally complicated.',
+      start:
+        'I am not saying the hole is alive. I am saying it coughed up my old lunchbox. It had my name on it and a note that said unsubscribe.',
+      active:
+        'The back lot is glowing again. Please make the glowing less legally complicated. Rocks, lost items, cones. In that order if possible.',
       ready: 'Mayor Buck called it decorative. I am going to need a second opinion from someone with eyes.',
-      completed: 'The hole is coned off, the rocks are contained, and I am choosing optimism.',
+      completed:
+        'The hole is coned off, the rocks are contained, and I am choosing optimism with both hands.',
       npcLines: {
         'tammy-two-phones':
-          'I posted one picture and now people are calling it a portal. Which it might be.',
-        'mayor-buck': 'The hole has been reviewed and is currently classified as mostly decorative.'
+          'I posted one picture and now people are calling it a portal. Which it might be. My comments are split between science and vibes.',
+        'mayor-buck':
+          'The hole has been reviewed and is currently classified as mostly decorative. That classification expires if it starts humming again.'
       }
     },
     completionScreen: {
       title: 'Sinkhole Secured',
-      body: 'The glowing back-lot anomaly is now surrounded by cones, which is close enough to science for today.'
+      body: 'The glowing back-lot anomaly is now surrounded by cones, which is close enough to science for today.',
+      reaction:
+        'Big Dale taped a loyalty-card application to the warning sign just in case the depths become customers.'
     }
   }
 };

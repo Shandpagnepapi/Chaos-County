@@ -15,7 +15,6 @@ import {
   clearSave,
   createEventProgress,
   createNewSave,
-  ensureEventProgress,
   hasSave,
   loadSave,
   saveGame,
@@ -42,6 +41,7 @@ export interface RewardPanelState {
 }
 
 export type ScreenMode = 'start' | 'playing';
+export type PausePanel = 'menu' | 'event-board' | 'controls' | 'credits';
 
 interface GameState {
   screen: ScreenMode;
@@ -59,6 +59,8 @@ interface GameState {
   dialogue?: DialogueState;
   floatingTexts: FloatingText[];
   rewardPanel?: RewardPanelState;
+  pausePanel?: PausePanel;
+  eventIntroVisible: boolean;
   startGame: (mode: 'continue' | 'new') => void;
   setActiveEvent: (eventId: EventId) => void;
   setPlayerPosition: (position: Vec2) => void;
@@ -69,6 +71,12 @@ interface GameState {
   closeDialogue: () => void;
   collectEventItem: (id: string, position: [number, number, number]) => void;
   chooseQuestOption: (choiceId: string) => void;
+  togglePause: () => void;
+  closePause: () => void;
+  setPausePanel: (panel: PausePanel) => void;
+  returnToTitle: () => void;
+  resetSave: () => void;
+  hideEventIntro: () => void;
   addFloatingText: (text: string, position: [number, number, number], tone?: FloatingText['tone']) => void;
   removeFloatingText: (id: string) => void;
   hideRewardPanel: () => void;
@@ -206,6 +214,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   earnedBadges: initialSave.earnedBadges,
   introCompleted: initialSave.introCompleted,
   floatingTexts: [],
+  eventIntroVisible: false,
 
   startGame: (mode) => {
     const selectedEventId = get().activeEventId;
@@ -238,6 +247,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       introCompleted: true,
       dialogue: undefined,
       rewardPanel: undefined,
+      pausePanel: undefined,
+      eventIntroVisible: true,
       nearestNpcId: undefined,
       nearestZoneId: undefined
     });
@@ -254,6 +265,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       },
       dialogue: undefined,
       rewardPanel: undefined,
+      eventIntroVisible: state.screen === 'playing' ? true : state.eventIntroVisible,
       nearestNpcId: undefined,
       nearestZoneId: undefined
     }));
@@ -271,6 +283,10 @@ export const useGameStore = create<GameState>((set, get) => ({
     const state = get();
     if (state.dialogue) {
       set({ dialogue: undefined });
+      return;
+    }
+
+    if (state.pausePanel) {
       return;
     }
 
@@ -355,7 +371,7 @@ export const useGameStore = create<GameState>((set, get) => ({
           earnedBadges,
           rewardPanel: {
             title: event.completionScreen.title,
-            body: event.completionScreen.body,
+            body: `${event.completionScreen.body} ${event.completionScreen.reaction}`,
             rewards: rewardLines(event)
           }
         });
@@ -375,6 +391,64 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
 
   closeDialogue: () => set({ dialogue: undefined }),
+
+  togglePause: () => {
+    const state = get();
+    if (state.screen !== 'playing') {
+      return;
+    }
+    if (state.dialogue) {
+      set({ dialogue: undefined });
+      return;
+    }
+    set({ pausePanel: state.pausePanel ? undefined : 'menu' });
+  },
+
+  closePause: () => set({ pausePanel: undefined }),
+
+  setPausePanel: (pausePanel) => set({ pausePanel }),
+
+  returnToTitle: () => {
+    get().saveNow();
+    set({
+      screen: 'start',
+      pausePanel: undefined,
+      dialogue: undefined,
+      rewardPanel: undefined,
+      eventIntroVisible: false,
+      nearestNpcId: undefined,
+      nearestZoneId: undefined
+    });
+  },
+
+  resetSave: () => {
+    if (!window.confirm('Reset local Chaos County save data? Coins, quest progress, and cosmetics on this device will be cleared.')) {
+      return;
+    }
+
+    const activeEventId = get().activeEventId;
+    clearSave();
+    const fresh = createNewSave(activeEventId);
+    set({
+      screen: 'start',
+      hasExistingSave: false,
+      activeEventId,
+      progressByEvent: fresh.progressByEvent,
+      playerPosition: fresh.playerPosition,
+      coins: 0,
+      unlockedCosmetics: [],
+      earnedBadges: [],
+      introCompleted: false,
+      dialogue: undefined,
+      rewardPanel: undefined,
+      pausePanel: undefined,
+      eventIntroVisible: false,
+      nearestNpcId: undefined,
+      nearestZoneId: undefined
+    });
+  },
+
+  hideEventIntro: () => set({ eventIntroVisible: false }),
 
   collectEventItem: (id, position) => {
     const state = get();
@@ -449,7 +523,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       earnedBadges,
       rewardPanel: {
         title: event.completionScreen.title,
-        body: event.completionScreen.body,
+        body: `${event.completionScreen.body} ${event.completionScreen.reaction}`,
         rewards: rewardLines(event)
       }
     });

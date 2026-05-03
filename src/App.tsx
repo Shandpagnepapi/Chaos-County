@@ -26,7 +26,7 @@ export default function App() {
         className="game-canvas"
         shadows
         dpr={[1, 1.75]}
-        camera={{ fov: 43, near: 0.1, far: 90, position: [7, 8, 9] }}
+        camera={{ fov: 46, near: 0.1, far: 90, position: [6, 5.2, 7.4] }}
         gl={{ antialias: true, powerPreference: 'high-performance' }}
       >
         <Suspense fallback={null}>{screen === 'start' ? <StartScene3D /> : <GameScene />}</Suspense>

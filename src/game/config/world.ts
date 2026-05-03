@@ -208,7 +208,8 @@ export const npcs: NpcConfig[] = [
     model: characterAssets.bigDale,
     position: { x: -9.1, z: -2.5 },
     rotationY: Math.PI,
-    dialogue: 'I know three things: gas prices, snack margins, and when a goblin is bad for business.'
+    dialogue:
+      'I know three things: gas prices, snack margins, and when The Algorithm is about to make my Tuesday legally interesting.'
   },
   {
     id: 'tammy-two-phones',
@@ -218,7 +219,7 @@ export const npcs: NpcConfig[] = [
     position: { x: -1.0, z: 4.8 },
     rotationY: -0.4,
     dialogue:
-      'My left phone says the goblin is real. My right phone says he has a brand strategy. Both are ringing.'
+      'My left phone tracks rumors. My right phone tracks rumors about the rumors. Chaos County is basically a weather system with comments.'
   },
   {
     id: 'mayor-buck',
@@ -228,6 +229,6 @@ export const npcs: NpcConfig[] = [
     position: { x: 9.7, z: -4.3 },
     rotationY: Math.PI,
     dialogue:
-      'Everything is under control. I have appointed a snack advisory committee and given it a very sturdy clipboard.'
+      'Everything is under control. We have a clipboard, a sunset, and several official explanations for things no one understands.'
   }
 ];

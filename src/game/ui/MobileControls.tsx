@@ -10,6 +10,7 @@ export function MobileControls() {
   const interact = useGameStore((state) => state.interact);
   const nearestNpcId = useGameStore((state) => state.nearestNpcId);
   const nearestZoneId = useGameStore((state) => state.nearestZoneId);
+  const label = nearestNpcId ? 'Talk' : nearestZoneId ? 'Use' : 'Interact';
 
   const updatePointer = (clientX: number, clientY: number) => {
     const element = joystickRef.current;
@@ -58,7 +59,7 @@ export function MobileControls() {
         />
       </div>
       <button className="touch-interact" disabled={!nearestNpcId && !nearestZoneId} onClick={interact}>
-        E
+        {label}
       </button>
     </div>
   );

@@ -1,6 +1,5 @@
 import {
   countCollectedType,
-  eventList,
   getCollectibleDefinition,
   getEventConfig,
   type EventId,
@@ -8,6 +7,8 @@ import {
 } from '../config/events';
 import { createEventProgress, getQuestLine, type SaveData, type EventProgress } from '../save/saveManager';
 import { useGameStore } from '../state/gameStore';
+import { EventIntroCard } from './EventIntroCard';
+import { PauseMenu } from './PauseMenu';
 
 function getStepProgress(eventId: EventId, progress: EventProgress, step?: QuestStep): { current: number; total: number } {
   const event = getEventConfig(eventId);
@@ -34,7 +35,6 @@ function getStepProgress(eventId: EventId, progress: EventProgress, step?: Quest
 
 export function HUD() {
   const activeEventId = useGameStore((state) => state.activeEventId);
-  const setActiveEvent = useGameStore((state) => state.setActiveEvent);
   const coins = useGameStore((state) => state.coins);
   const progressByEvent = useGameStore((state) => state.progressByEvent);
   const unlockedCosmetics = useGameStore((state) => state.unlockedCosmetics);
@@ -43,6 +43,7 @@ export function HUD() {
   const rewardPanel = useGameStore((state) => state.rewardPanel);
   const hideRewardPanel = useGameStore((state) => state.hideRewardPanel);
   const chooseQuestOption = useGameStore((state) => state.chooseQuestOption);
+  const setPausePanel = useGameStore((state) => state.setPausePanel);
 
   const event = getEventConfig(activeEventId);
   const progress = progressByEvent[activeEventId] ?? createEventProgress();
@@ -67,18 +68,11 @@ export function HUD() {
     <div className="hud">
       <div className="hud-top">
         <div className="event-banner panel">
-          <strong>Active Event</strong>
+          <strong>County Alert</strong>
           <span>{event.hudBannerText}</span>
-          <label className="dev-event-select">
-            <em>Dev event</em>
-            <select value={activeEventId} onChange={(eventChange) => setActiveEvent(eventChange.target.value as EventId)}>
-              {eventList.map((candidate) => (
-                <option key={candidate.id} value={candidate.id}>
-                  {candidate.name}
-                </option>
-              ))}
-            </select>
-          </label>
+          <button className="mini-board-button" onClick={() => setPausePanel('event-board')}>
+            Open Bulletin Board
+          </button>
         </div>
         <div className="stat-stack">
           <div className="stat-card panel">
@@ -100,7 +94,7 @@ export function HUD() {
 
       <div className="quest-card panel">
         <h2>{event.name}</h2>
-        <p>{getQuestLine(saveLike)}</p>
+          <p>{getQuestLine(saveLike)}</p>
         <div className="progress-bar">
           <div style={{ width: `${progress.status === 'completed' ? 100 : progressPercent}%` }} />
         </div>
@@ -143,6 +137,8 @@ export function HUD() {
           <button onClick={hideRewardPanel}>Nice</button>
         </div>
       ) : null}
+      <EventIntroCard />
+      <PauseMenu />
     </div>
   );
 }
