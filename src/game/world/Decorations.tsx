@@ -239,20 +239,27 @@ export function Decorations() {
       <PowerPole position={[-14.6, 0, -2.2]} />
       <PowerPole position={[14.8, 0, -2.0]} />
       <LowPolyTrashCan position={[-6.0, 0, -3.0]} />
+      <LowPolyTrashCan position={[-12.9, 0, -2.25]} />
+      <LowPolyTrashCan position={[-8.2, 0, -2.12]} />
       <LowPolyTrashCan position={[8.0, 0, -5.1]} />
       <LowPolyTrashCan position={[2.2, 0, 5.0]} />
       <ParkedCar position={[-12.4, 0, -1.2]} color="#cf795e" rotationY={Math.PI / 2} />
+      <ParkedCar position={[-10.4, 0, -2.85]} color="#d0a562" rotationY={Math.PI / 2} />
       <ParkedCar position={[1.3, 0, 2.85]} color="#5f8d95" rotationY={0} />
       <ParkedCar position={[7.6, 0, -1.4]} color="#d7b56d" rotationY={Math.PI} />
+      <ParkedCar position={[12.9, 0, 2.85]} color="#6c8fa3" rotationY={0} />
       <Mailbox position={[-3.1, 0, -5.1]} rotationY={Math.PI} />
+      <Mailbox position={[-13.1, 0, 4.55]} rotationY={Math.PI / 2} />
       <Mailbox position={[5.6, 0, 5.0]} rotationY={0.1} />
       <Mailbox position={[10.8, 0, 4.3]} rotationY={-0.2} />
       <CountySign position={[-12.0, 0, -2.55]} text="ALERT" rotationY={0.2} />
+      <CountySign position={[-8.0, 0, -2.18]} text="BOARD" rotationY={-0.25} />
       <CountySign position={[14.0, 0, 2.35]} text="WOODS" rotationY={-0.5} />
       <GasCrate position={[-8.3, 0, -3.4]} />
       <GasCrate position={[-7.7, 0, -3.25]} />
       <GasCrate position={[-13.4, 0, -4.2]} />
       <GasCrate position={[-12.8, 0, -3.65]} />
+      <GasCrate position={[-8.8, 0, -2.65]} />
       <FlowerPatch position={[-5.1, 0, -6.1]} color="#f0a28e" />
       <FlowerPatch position={[6.2, 0, 6.8]} color="#ffd27a" />
       <FlowerPatch position={[12.4, 0, -4.6]} color="#9fcac5" />

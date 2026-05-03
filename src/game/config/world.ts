@@ -56,107 +56,107 @@ export const worldModels: WorldModel[] = [
     model: worldAssets.gasStation,
     position: [-10.8, 0, -6.4],
     rotationY: Math.PI,
-    scale: 2.6,
+    scale: 3.15,
     label: 'Dale Mart',
-    labelHeight: 2.9,
+    labelHeight: 3.35,
     fadeWhenOccluding: true,
-    collider: { id: 'gas-station', x: -10.8, z: -6.4, width: 3.2, depth: 2.2 }
+    collider: { id: 'gas-station', x: -10.8, z: -6.4, width: 3.85, depth: 2.72 }
   },
   {
     id: 'gas-storage',
     model: worldAssets.storage,
     position: [-6.9, 0, -5.7],
     rotationY: Math.PI,
-    scale: 2.1,
-    collider: { id: 'gas-storage', x: -6.9, z: -5.7, width: 2.2, depth: 1.8 }
+    scale: 2.42,
+    collider: { id: 'gas-storage', x: -6.9, z: -5.7, width: 2.6, depth: 2.08 }
   },
   {
     id: 'town-hall',
     model: worldAssets.townHall,
     position: [9.8, 0, -7.4],
     rotationY: Math.PI,
-    scale: 2.55,
+    scale: 2.9,
     label: 'Town Hall',
-    labelHeight: 2.8,
+    labelHeight: 3.15,
     fadeWhenOccluding: true,
-    collider: { id: 'town-hall', x: 9.8, z: -7.4, width: 3.1, depth: 2.1 }
+    collider: { id: 'town-hall', x: 9.8, z: -7.4, width: 3.5, depth: 2.42 }
   },
   {
     id: 'maple-house',
     model: worldAssets.houseA,
     position: [-3.4, 0, -8.1],
     rotationY: Math.PI,
-    scale: 2.15,
-    collider: { id: 'maple-house', x: -3.4, z: -8.1, width: 2.5, depth: 1.8 }
+    scale: 2.48,
+    collider: { id: 'maple-house', x: -3.4, z: -8.1, width: 2.88, depth: 2.1 }
   },
   {
     id: 'juniper-house',
     model: worldAssets.houseB,
     position: [2.5, 0, -8.4],
     rotationY: Math.PI,
-    scale: 2.18,
-    collider: { id: 'juniper-house', x: 2.5, z: -8.4, width: 2.55, depth: 1.85 }
+    scale: 2.5,
+    collider: { id: 'juniper-house', x: 2.5, z: -8.4, width: 2.92, depth: 2.12 }
   },
   {
     id: 'tammy-house',
     model: worldAssets.houseC,
     position: [-2.7, 0, 7.4],
-    scale: 2.2,
-    collider: { id: 'tammy-house', x: -2.7, z: 7.4, width: 2.6, depth: 1.9 }
+    scale: 2.52,
+    collider: { id: 'tammy-house', x: -2.7, z: 7.4, width: 2.95, depth: 2.18 }
   },
   {
     id: 'solar-house',
     model: worldAssets.houseE,
     position: [4.8, 0, 7.8],
-    scale: 2.15,
-    collider: { id: 'solar-house', x: 4.8, z: 7.8, width: 2.5, depth: 1.85 }
+    scale: 2.45,
+    collider: { id: 'solar-house', x: 4.8, z: 7.8, width: 2.82, depth: 2.12 }
   },
   {
     id: 'corner-home',
     model: worldAssets.houseF,
     position: [10.3, 0, 6.6],
-    scale: 2.25,
-    collider: { id: 'corner-home', x: 10.3, z: 6.6, width: 2.8, depth: 2.0 }
+    scale: 2.55,
+    collider: { id: 'corner-home', x: 10.3, z: 6.6, width: 3.15, depth: 2.3 }
   },
   {
     id: 'cedar-bungalow',
     model: worldAssets.houseBungalow,
     position: [-13.6, 0, 6.9],
     rotationY: Math.PI / 2,
-    scale: 2.08,
-    collider: { id: 'cedar-bungalow', x: -13.6, z: 6.9, width: 2.2, depth: 2.55 }
+    scale: 2.38,
+    collider: { id: 'cedar-bungalow', x: -13.6, z: 6.9, width: 2.52, depth: 2.92 }
   },
   {
     id: 'alley-shop',
     model: worldAssets.shopSmall,
     position: [-15.0, 0, -6.6],
     rotationY: Math.PI,
-    scale: 1.95,
+    scale: 2.22,
     fadeWhenOccluding: true,
-    collider: { id: 'alley-shop', x: -15.0, z: -6.6, width: 2.15, depth: 1.8 }
+    collider: { id: 'alley-shop', x: -15.0, z: -6.6, width: 2.46, depth: 2.05 }
   },
   {
     id: 'hazel-house',
     model: worldAssets.housePorch,
     position: [0.3, 0, 11.6],
-    scale: 2.05,
-    collider: { id: 'hazel-house', x: 0.3, z: 11.6, width: 2.4, depth: 1.8 }
+    scale: 2.36,
+    collider: { id: 'hazel-house', x: 0.3, z: 11.6, width: 2.72, depth: 2.08 }
   },
   {
     id: 'garage-house',
     model: worldAssets.houseGarage,
     position: [14.1, 0, 8.8],
     rotationY: -Math.PI / 2,
-    scale: 2.05,
-    collider: { id: 'garage-house', x: 14.1, z: 8.8, width: 2.2, depth: 2.45 }
+    scale: 2.36,
+    collider: { id: 'garage-house', x: 14.1, z: 8.8, width: 2.52, depth: 2.8 }
   },
   {
     id: 'duplex',
     model: worldAssets.houseD,
     position: [14.2, 0, -4.1],
     rotationY: -Math.PI / 2,
-    scale: 2.25,
-    collider: { id: 'duplex', x: 14.2, z: -4.1, width: 2.3, depth: 2.4 }
+    scale: 2.55,
+    collider: { id: 'duplex', x: 14.2, z: -4.1, width: 2.62, depth: 2.72 }
   },
   {
     id: 'fence-park-a',
@@ -265,7 +265,7 @@ export const npcs: NpcConfig[] = [
     position: { x: -9.1, z: -2.5 },
     rotationY: Math.PI,
     dialogue:
-      'I know three things: gas prices, snack margins, and when The Algorithm is about to make my Tuesday legally interesting. If the streetlights blink twice, I start labeling shelves by emotional risk.'
+      'I know three things: gas prices, snack margins, and when The Algorithm is about to make my Tuesday legally interesting. If the streetlights blink twice, I start labeling shelves by emotional risk. Dale Mart has survived drones, cursed furniture rumors, and one vending machine that asked for legal counsel.'
   },
   {
     id: 'tammy-two-phones',
@@ -275,7 +275,7 @@ export const npcs: NpcConfig[] = [
     position: { x: -1.0, z: 4.8 },
     rotationY: -0.4,
     dialogue:
-      'My left phone tracks rumors. My right phone tracks rumors about the rumors. Chaos County is basically a weather system with comments, and I am the only person brave enough to refresh during thunder.'
+      'My left phone tracks rumors. My right phone tracks rumors about the rumors. Chaos County is basically a weather system with comments, and I am the only person brave enough to refresh during thunder. If The Algorithm sneezes, I know which driveway gets weird first.'
   },
   {
     id: 'mayor-buck',
@@ -285,6 +285,6 @@ export const npcs: NpcConfig[] = [
     position: { x: 9.7, z: -4.3 },
     rotationY: Math.PI,
     dialogue:
-      'Everything is under control. We have a clipboard, a sunset, and several official explanations for things no one understands. The Algorithm has not filed the correct permit, which I consider progress.'
+      'Everything is under control. We have a clipboard, a sunset, and several official explanations for things no one understands. The Algorithm has not filed the correct permit, which I consider progress. I have also prepared a reassuring nod for emergencies.'
   }
 ];

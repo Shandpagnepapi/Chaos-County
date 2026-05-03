@@ -45,6 +45,15 @@ const drivewayPads = [
   { position: [10.3, 0.034, 3.55], size: [2.7, 1.35] }
 ] satisfies Array<{ position: [number, number, number]; size: [number, number] }>;
 
+const lotEdges = [
+  { position: [-13.6, 0.074, 4.45], size: [3.6, 0.12] },
+  { position: [-2.7, 0.074, 5.05], size: [3.2, 0.12] },
+  { position: [4.8, 0.074, 5.2], size: [3.0, 0.12] },
+  { position: [10.3, 0.074, 4.0], size: [3.3, 0.12] },
+  { position: [-3.4, 0.074, -5.55], size: [3.2, 0.12] },
+  { position: [2.5, 0.074, -5.62], size: [3.2, 0.12] }
+] satisfies Array<{ position: [number, number, number]; size: [number, number] }>;
+
 export function RoadsAndGround() {
   const width = worldBounds.maxX - worldBounds.minX;
   const depth = worldBounds.maxZ - worldBounds.minZ;
@@ -86,6 +95,25 @@ export function RoadsAndGround() {
           size={pad.size}
           color="#b9b4a7"
           height={0.05}
+        />
+      ))}
+
+      <LowPolySlab position={[-10.8, 0.07, -3.55]} size={[7.4, 3.0]} color="#414d5b" height={0.09} />
+      <LowPolySlab position={[-10.8, 0.115, -1.98]} size={[7.6, 0.16]} color="#d3c5ad" height={0.08} />
+      <LowPolySlab position={[-14.55, 0.116, -3.55]} size={[0.16, 2.9]} color="#d3c5ad" height={0.08} />
+      <LowPolySlab position={[-7.05, 0.116, -3.55]} size={[0.16, 2.9]} color="#d3c5ad" height={0.08} />
+
+      {[-12.9, -11.7, -10.5, -9.3].map((x) => (
+        <RoadMark key={`parking-${x}`} position={[x, 0.128, -2.85]} size={[0.08, 0.72]} color="#e4cfaa" opacity={0.48} />
+      ))}
+
+      {lotEdges.map((edge) => (
+        <LowPolySlab
+          key={`${edge.position[0]}-${edge.position[2]}`}
+          position={edge.position}
+          size={edge.size}
+          color="#cfc0a4"
+          height={0.055}
         />
       ))}
 

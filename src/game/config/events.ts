@@ -368,9 +368,9 @@ export const gasStationGoblinPanic: EventConfig = {
       'The shelves are safe again. You earned 100 coins and the Goblin Hat. I will pretend that hat is normal, which is how this town survives. If it whispers coupon codes, tell Tammy first and me second.',
     npcLines: {
       'tammy-two-phones':
-        'My left phone says the goblin is real. My right phone says he has a brand strategy. Both are ringing, and neither one has apologized for last week.',
+        'My left phone says the goblin is real. My right phone says he has a brand strategy. Both are ringing, and neither one has apologized for last week. I am saving every receipt because the county archive is just me with cloud storage.',
       'mayor-buck':
-        'Everything is under control. I have appointed a snack advisory committee and given it a very sturdy clipboard. The Algorithm respects forms, probably.'
+        'Everything is under control. I have appointed a snack advisory committee and given it a very sturdy clipboard. The Algorithm respects forms, probably. If not, I will create a second form with stronger margins.'
     }
   },
   completionScreen: {
@@ -476,9 +476,9 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         'Airspace is clear. The Tin Foil Cap is yours. Do not let it touch the microwave. Or Tammy\'s left phone. The Algorithm hates being ignored, so enjoy the quiet while it recalculates.',
       npcLines: {
         'tammy-two-phones':
-          "I saw one drone wink at me. Drones don't have eyes, but I know what I saw. I am calling this one #SkyOops.",
+          "I saw one drone wink at me. Drones don't have eyes, but I know what I saw. I am calling this one #SkyOops. The Algorithm keeps promoting the sky like it has a launch schedule.",
         'mayor-buck':
-          'The town has full control of the sky situation. Please do not look up. That is not a law, but it is advice with official stationery.'
+          'The town has full control of the sky situation. Please do not look up. That is not a law, but it is advice with official stationery. Our airspace policy is mostly confidence.'
       }
     },
     completionScreen: {
@@ -588,9 +588,9 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         'Great news: everyone is embarrassed and I have already drafted a follow-up post called Things I Never Said But Technically Started. The Algorithm loves closure, but only if it can reopen it with comments.',
       npcLines: {
         'big-dale':
-          'Never trust a recliner with cupholders and a history. I learned that during the Algorithm futon incident.',
+          'Never trust a recliner with cupholders and a history. I learned that during the Algorithm futon incident. Furniture remembers more than it should in this county.',
         'mayor-buck':
-          'All yard sales are currently considered emotionally unstable. The county recommends exact change and deep breathing.'
+          'All yard sales are currently considered emotionally unstable. The county recommends exact change and deep breathing. I have asked residents not to haggle with objects that hum.'
       }
     },
     completionScreen: {
@@ -717,9 +717,9 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         'The trash route is moving again, and I have learned a great deal about collective bargaining, mostly from a clipboard I am afraid to touch. I will be adding "tiny podium permits" to next month\'s agenda.',
       npcLines: {
         'tammy-two-phones':
-          'I respect the movement. I just want my trash can back. Their social media rollout is honestly disciplined.',
+          'I respect the movement. I just want my trash can back. Their social media rollout is honestly disciplined. The Algorithm gave their demands better reach than the mayoral newsletter.',
         'big-dale':
-          'I have never seen a strike line move that quietly. Last week\'s goblin had less organizational structure.'
+          'I have never seen a strike line move that quietly. Last week\'s goblin had less organizational structure. I am not taking sides, but their snack platform is persuasive.'
       }
     },
     completionScreen: {
@@ -853,9 +853,9 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         'That apology had layers. I am not saying they were good layers, but they were layers. Chaos County will discuss them at dinner, then deny caring in the morning.',
       npcLines: {
         'big-dale':
-          'He apologized in front of pump three. That pump has seen enough. It still has feelings from the drone thing.',
+          'He apologized in front of pump three. That pump has seen enough. It still has feelings from the drone thing. The Algorithm keeps choosing my forecourt like it pays rent.',
         'mayor-buck':
-          'I support accountability, especially when someone else understands the situation. My statement is currently in draft.'
+          'I support accountability, especially when someone else understands the situation. My statement is currently in draft. It says we are monitoring the vibes.'
       }
     },
     completionScreen: {
@@ -970,9 +970,9 @@ export const eventConfigs: Record<EventId, EventConfig> = {
         'The hole is coned off, the rocks are contained, and I am choosing optimism with both hands. If it starts selling ad space, I am blaming City Hall first.',
       npcLines: {
         'tammy-two-phones':
-          'I posted one picture and now people are calling it a portal. Which it might be. My comments are split between science and vibes.',
+          'I posted one picture and now people are calling it a portal. Which it might be. My comments are split between science and vibes. The Algorithm has already suggested merch.',
         'mayor-buck':
-          'The hole has been reviewed and is currently classified as mostly decorative. That classification expires if it starts humming again.'
+          'The hole has been reviewed and is currently classified as mostly decorative. That classification expires if it starts humming again. I have requested a smaller glow for budget reasons.'
       }
     },
     completionScreen: {

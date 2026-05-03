@@ -1,7 +1,7 @@
 import { useRef, useState } from 'react';
 import { useGameStore } from '../state/gameStore';
 
-const maxDistance = 42;
+const maxDistance = 34;
 
 export function MobileControls() {
   const joystickRef = useRef<HTMLDivElement>(null);

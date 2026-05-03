@@ -71,21 +71,21 @@ export function HUD() {
           <strong>County Alert</strong>
           <span>{event.hudBannerText}</span>
           <button className="mini-board-button" onClick={() => setPausePanel('event-board')}>
-            Bulletin Board
+            Board
           </button>
         </div>
         <div className="stat-stack">
-          <div className="stat-card panel">
+          <div className="stat-card stat-coins panel">
             <b>Coins</b>
             <span>{coins}</span>
           </div>
-          <div className="stat-card panel">
-            <b>{primaryDefinition.pluralLabel}</b>
+          <div className="stat-card stat-primary panel">
+            <b>{primaryDefinition.label}</b>
             <span>
               {primaryCount}/{event.requiredCount}
             </span>
           </div>
-          <div className="stat-card panel">
+          <div className="stat-card stat-inventory panel">
             <b>Inventory</b>
             <span>{progress.collectedItemIds.length + unlockedCosmetics.length}</span>
           </div>

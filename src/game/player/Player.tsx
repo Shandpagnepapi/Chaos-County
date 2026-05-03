@@ -11,7 +11,7 @@ import { resolvePlayerCollision } from '../utils/collision';
 import { useKeyboardInput } from './useKeyboardInput';
 
 const moveSpeed = 4.2;
-const interactionDistance = 1.35;
+const interactionDistance = 1.55;
 
 export function Player() {
   const groupRef = useRef<Group>(null);
@@ -97,7 +97,7 @@ export function Player() {
         rotationY={0}
         moving={movingRef.current}
         cosmeticId={cosmeticId}
-        scale={0.52}
+        scale={0.36}
       />
     </group>
   );

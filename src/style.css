@@ -397,12 +397,12 @@ button {
   user-select: none;
   border: 1px solid rgba(255, 232, 193, 0.28);
   border-radius: 999px;
-  padding: 4px 8px;
+  padding: 3px 7px;
   color: #fff8ec;
-  background: rgba(31, 36, 44, 0.72);
-  box-shadow: 0 5px 14px rgba(23, 17, 14, 0.22);
+  background: rgba(31, 36, 44, 0.68);
+  box-shadow: 0 4px 12px rgba(23, 17, 14, 0.2);
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 900;
 }
 
@@ -420,6 +420,20 @@ button {
 .guide-label {
   color: #2a221b;
   background: #ffd36f;
+}
+
+.quest-bang {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  border: 2px solid rgba(255, 247, 228, 0.85);
+  border-radius: 999px;
+  color: #332516;
+  background: #ffd36f;
+  box-shadow: 0 6px 16px rgba(30, 20, 12, 0.26);
+  font-size: 16px;
+  font-weight: 950;
 }
 
 .floating-text {
@@ -724,58 +738,92 @@ button {
   }
 
   .hud {
-    padding: max(8px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right))
-      max(8px, env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+    padding: max(7px, env(safe-area-inset-top)) max(7px, env(safe-area-inset-right))
+      max(7px, env(safe-area-inset-bottom)) max(7px, env(safe-area-inset-left));
   }
 
   .quest-card {
+    display: block;
+    left: max(10px, env(safe-area-inset-left));
+    bottom: max(106px, calc(env(safe-area-inset-bottom) + 106px));
+    width: min(235px, 62vw);
+    padding: 7px 9px 8px;
+    border-radius: 11px;
+    background: rgba(30, 35, 43, 0.62);
+    box-shadow: 0 8px 20px rgba(13, 15, 19, 0.22);
+  }
+
+  .quest-card h2 {
     display: none;
+  }
+
+  .quest-card p {
+    display: -webkit-box;
+    overflow: hidden;
+    font-size: 0.72rem;
+    line-height: 1.2;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .progress-bar {
+    height: 4px;
+    margin-top: 6px;
   }
 
   .hud-top {
     align-items: flex-start;
     flex-direction: row;
-    gap: 6px;
+    gap: 5px;
   }
 
   .event-banner {
     max-width: none;
     min-width: 0;
     flex: 1;
-    padding: 7px 9px 8px;
-    border-radius: 11px;
+    position: relative;
+    min-height: 31px;
+    padding: 6px 48px 6px 9px;
+    border-radius: 999px;
+    background: rgba(31, 36, 44, 0.66);
+    box-shadow: 0 6px 18px rgba(10, 12, 16, 0.2);
   }
 
   .event-banner strong {
-    margin-bottom: 1px;
-    font-size: 0.58rem;
-    letter-spacing: 0;
+    display: none;
   }
 
   .event-banner span {
     overflow: hidden;
-    font-size: 0.78rem;
+    font-size: 0.72rem;
     line-height: 1.15;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .mini-board-button {
-    margin-top: 5px;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    margin: 0;
     padding: 4px 7px;
-    font-size: 0.62rem;
+    border-radius: 999px;
+    font-size: 0.58rem;
   }
 
   .stat-stack {
     display: grid;
-    grid-template-columns: repeat(2, minmax(58px, 1fr));
-    width: min(42vw, 172px);
-    gap: 5px;
+    grid-template-columns: repeat(2, minmax(50px, 1fr));
+    width: min(39vw, 142px);
+    gap: 4px;
   }
 
   .stat-card {
     min-width: 0;
-    padding: 6px 7px;
+    padding: 5px 7px;
+    border-radius: 999px;
+    background: rgba(31, 36, 44, 0.66);
+    box-shadow: 0 6px 18px rgba(10, 12, 16, 0.18);
     text-align: left;
   }
 
@@ -784,16 +832,39 @@ button {
   }
 
   .stat-card b {
-    font-size: 0.52rem;
+    display: block;
+    overflow: hidden;
+    font-size: 0.48rem;
+    line-height: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .stat-card span {
-    font-size: 0.82rem;
+    font-size: 0.72rem;
+    line-height: 1;
   }
 
   .world-label {
-    padding: 3px 6px;
+    padding: 2px 5px;
+    font-size: 8px;
+  }
+
+  .interaction-prompt {
+    padding: 4px 8px;
     font-size: 9px;
+  }
+
+  .guide-label {
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .quest-bang {
+    width: 18px;
+    height: 18px;
+    font-size: 13px;
   }
 
   .pause-actions {

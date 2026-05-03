@@ -49,14 +49,14 @@ export function StartScene3D() {
 
   useFrame(({ camera, clock }) => {
     camera.position.set(
-      -8.7 + Math.sin(clock.elapsedTime * 0.18) * 0.46,
-      4.25 + Math.sin(clock.elapsedTime * 0.13) * 0.12,
-      8.9 + Math.cos(clock.elapsedTime * 0.16) * 0.42
+      -9.1 + Math.sin(clock.elapsedTime * 0.18) * 0.46,
+      3.9 + Math.sin(clock.elapsedTime * 0.13) * 0.12,
+      9.8 + Math.cos(clock.elapsedTime * 0.16) * 0.42
     );
-    camera.lookAt(-2.2, 0.72, -3.0);
+    camera.lookAt(-2.2, 0.55, -3.0);
 
     if (camera instanceof PerspectiveCamera) {
-      camera.fov = 48;
+      camera.fov = 51;
       camera.updateProjectionMatrix();
     }
 
@@ -70,19 +70,19 @@ export function StartScene3D() {
       <Lighting />
       <RoadsAndGround />
       <group ref={townRef}>
-        <StaticModel src={worldAssets.gasStation} position={[-7.7, 0, -4.5]} rotation={[0, Math.PI, 0]} scale={2.65} />
-        <StaticModel src={worldAssets.storage} position={[-4.1, 0, -4.0]} rotation={[0, Math.PI, 0]} scale={2.0} />
-        <StaticModel src={worldAssets.houseA} position={[0.2, 0, -5.5]} rotation={[0, Math.PI, 0]} scale={2.1} />
-        <StaticModel src={worldAssets.houseC} position={[4.7, 0, -4.4]} rotation={[0, Math.PI, 0]} scale={2.15} />
-        <StaticModel src={worldAssets.townHall} position={[8.2, 0, -4.9]} rotation={[0, Math.PI, 0]} scale={2.45} />
+        <StaticModel src={worldAssets.gasStation} position={[-7.7, 0, -4.5]} rotation={[0, Math.PI, 0]} scale={3.1} />
+        <StaticModel src={worldAssets.storage} position={[-4.1, 0, -4.0]} rotation={[0, Math.PI, 0]} scale={2.35} />
+        <StaticModel src={worldAssets.houseA} position={[0.2, 0, -5.5]} rotation={[0, Math.PI, 0]} scale={2.45} />
+        <StaticModel src={worldAssets.houseC} position={[4.7, 0, -4.4]} rotation={[0, Math.PI, 0]} scale={2.48} />
+        <StaticModel src={worldAssets.townHall} position={[8.2, 0, -4.9]} rotation={[0, Math.PI, 0]} scale={2.85} />
         <StaticModel src={worldAssets.drivewayLong} position={[-7.7, 0.02, -1.9]} scale={2.5} />
         <StaticModel src={worldAssets.pathShort} position={[0.2, 0.02, -3.1]} scale={1.8} />
         <StaticModel src={worldAssets.treeLarge} position={[-10.3, 0, -6.6]} scale={2.4} />
         <StaticModel src={worldAssets.treeSmall} position={[10.1, 0, -6.1]} scale={1.9} />
         <StaticModel src={worldAssets.treeLarge} position={[-11.4, 0, -1.4]} scale={2.15} />
         <StaticModel src={worldAssets.planter} position={[-2.0, 0, -3.9]} scale={1.7} />
-        <BlockyCharacter model={characterAssets.bigDale} position={[-7.4, 0, -2.2]} rotationY={Math.PI} scale={0.48} />
-        <BlockyCharacter model={characterAssets.tammy} position={[-1.2, 0, -2.8]} rotationY={-0.2} scale={0.47} />
+        <BlockyCharacter model={characterAssets.bigDale} position={[-7.4, 0, -2.2]} rotationY={Math.PI} scale={0.34} />
+        <BlockyCharacter model={characterAssets.tammy} position={[-1.2, 0, -2.8]} rotationY={-0.2} scale={0.33} />
         <mesh castShadow position={[-6.4, 0.34, -2.2]}>
           <boxGeometry args={[0.8, 0.42, 0.55]} />
           <meshStandardMaterial color="#c27b5e" roughness={0.58} />

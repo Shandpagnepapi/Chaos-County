@@ -25,7 +25,7 @@ export function BlockyCharacter({
   title,
   showHat = false,
   cosmeticId,
-  scale = 0.52
+  scale = 0.36
 }: BlockyCharacterProps) {
   const gltf = useGLTF(model);
   const groupRef = useRef<Group>(null);
@@ -47,14 +47,14 @@ export function BlockyCharacter({
         <EventCosmetic cosmeticId={cosmeticId ?? (showHat ? 'goblin_hat' : undefined)} />
       </group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.018, 0]}>
-        <circleGeometry args={[0.58, 24]} />
-        <meshBasicMaterial color="#1a1110" transparent opacity={0.24} depthWrite={false} />
+        <circleGeometry args={[0.64, 24]} />
+        <meshBasicMaterial color="#1a1110" transparent opacity={0.22} depthWrite={false} />
       </mesh>
       {name ? (
-        <Html center position={[0, 2.08, 0]} distanceFactor={10}>
+        <Html center position={[0, 2.35, 0]} distanceFactor={11}>
           <div className="world-label">
             {name}
-            {title ? <span style={{ display: 'block', opacity: 0.74, fontSize: 9 }}>{title}</span> : null}
+            {title ? <span style={{ display: 'block', opacity: 0.72, fontSize: 8 }}>{title}</span> : null}
           </div>
         </Html>
       ) : null}

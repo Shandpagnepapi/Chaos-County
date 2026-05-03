@@ -10,6 +10,9 @@ import { useGameStore } from '../state/gameStore';
 function NPCActor({ npc }: { npc: NpcConfig | EventNpcConfig }) {
   const groupRef = useRef<Group>(null);
   const nearestNpcId = useGameStore((state) => state.nearestNpcId);
+  const playerPosition = useGameStore((state) => state.playerPosition);
+  const distanceToPlayer = Math.hypot(playerPosition.x - npc.position.x, playerPosition.z - npc.position.z);
+  const showLabel = distanceToPlayer < 5.2 || nearestNpcId === npc.id;
 
   useFrame(({ clock }) => {
     if (!groupRef.current) {
@@ -26,12 +29,12 @@ function NPCActor({ npc }: { npc: NpcConfig | EventNpcConfig }) {
         model={npc.model}
         position={[0, 0, 0]}
         rotationY={0}
-        name={npc.name}
-        title={npc.title}
-        scale={0.5}
+        name={showLabel ? npc.name : undefined}
+        title={showLabel ? npc.title : undefined}
+        scale={0.34}
       />
       {nearestNpcId === npc.id ? (
-        <Html center position={[0, 1.28, 0]} distanceFactor={8}>
+        <Html center position={[0, 0.94, 0]} distanceFactor={8}>
           <div className="world-label interaction-prompt">Talk</div>
         </Html>
       ) : null}
@@ -49,9 +52,6 @@ export function NPCs() {
       {activeNpcs.map((npc) => (
         <NPCActor key={npc.id} npc={npc} />
       ))}
-      <Html position={[-9.25, 2.25, -4.45]} center distanceFactor={13}>
-        <div className="world-label">{event.subtitle}</div>
-      </Html>
     </>
   );
 }
