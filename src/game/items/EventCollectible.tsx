@@ -221,7 +221,7 @@ export function EventCollectible({ type, definition, position, onCollect }: Even
           depthWrite={false}
         />
       </mesh>
-      <Html center position={[0, 0.92, 0]} distanceFactor={9}>
+      <Html center position={[0, 0.92, 0]} distanceFactor={9} zIndexRange={[2, 0]}>
         <div className={`world-label ${rare ? 'rare-label' : ''}`}>{definition.label}</div>
       </Html>
     </group>

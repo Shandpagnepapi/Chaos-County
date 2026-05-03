@@ -5,6 +5,7 @@ import { PerspectiveCamera } from 'three';
 import { StaticModel } from '../assets/StaticModel';
 import { BlockyCharacter } from '../characters/BlockyCharacter';
 import { characterAssets, worldAssets } from '../config/assets';
+import { SceneReadyProbe } from '../utils/SceneReadyProbe';
 import { Lighting } from '../world/Lighting';
 import { RoadsAndGround } from '../world/RoadsAndGround';
 
@@ -44,7 +45,11 @@ function TitleFireflies() {
   );
 }
 
-export function StartScene3D() {
+interface StartScene3DProps {
+  onReady: () => void;
+}
+
+export function StartScene3D({ onReady }: StartScene3DProps) {
   const townRef = useRef<Group>(null);
 
   useFrame(({ camera, clock }) => {
@@ -94,6 +99,7 @@ export function StartScene3D() {
       </mesh>
       <pointLight position={[-7.2, 2.55, -2.8]} intensity={0.55 + Math.sin(performance.now() * 0.006) * 0.08} color="#ffd58e" distance={5} />
       <TitleFireflies />
+      <SceneReadyProbe onReady={onReady} />
     </>
   );
 }

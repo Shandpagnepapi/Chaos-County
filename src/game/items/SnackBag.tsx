@@ -38,7 +38,7 @@ export function SnackBag({ position, onCollect }: SnackBagProps) {
         <circleGeometry args={[0.46, 24]} />
         <meshBasicMaterial color="#ffce6f" transparent opacity={0.22} depthWrite={false} />
       </mesh>
-      <Html center position={[0, 0.92, 0]} distanceFactor={9}>
+      <Html center position={[0, 0.92, 0]} distanceFactor={9} zIndexRange={[2, 0]}>
         <div className="world-label">Snack Bag</div>
       </Html>
     </group>

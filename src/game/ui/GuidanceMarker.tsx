@@ -72,7 +72,7 @@ export function GuidanceMarker() {
   return (
     <group ref={ref} position={[target.position.x, 1.05, target.position.z]}>
       {target.kind === 'npc' ? (
-        <Html center position={[0, 0.5, 0]} distanceFactor={8}>
+        <Html center position={[0, 0.5, 0]} distanceFactor={8} zIndexRange={[2, 0]}>
           <div className="quest-bang">!</div>
         </Html>
       ) : null}
@@ -84,7 +84,7 @@ export function GuidanceMarker() {
         <ringGeometry args={[0.32, 0.44, 28]} />
         <meshBasicMaterial color="#ffd36f" transparent opacity={0.34} depthWrite={false} />
       </mesh>
-      <Html center position={[0, 0.24, 0]} distanceFactor={10}>
+      <Html center position={[0, 0.24, 0]} distanceFactor={10} zIndexRange={[2, 0]}>
         <div className="world-label guide-label">{target.kind === 'npc' ? target.label : `Find: ${target.label}`}</div>
       </Html>
     </group>

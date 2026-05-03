@@ -1,5 +1,5 @@
 import { Canvas } from '@react-three/fiber';
-import { Suspense } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { GameScene } from './game/world/GameScene';
 import { StartMenu } from './game/start/StartMenu';
 import { StartScene3D } from './game/start/StartScene3D';
@@ -19,6 +19,20 @@ function LoadingOverlay() {
 
 export default function App() {
   const screen = useGameStore((state) => state.screen);
+  const [startSceneReady, setStartSceneReady] = useState(false);
+  const [gameSceneReady, setGameSceneReady] = useState(false);
+  const currentSceneReady = screen === 'start' ? startSceneReady : gameSceneReady;
+
+  const markStartSceneReady = useCallback(() => setStartSceneReady(true), []);
+  const markGameSceneReady = useCallback(() => setGameSceneReady(true), []);
+
+  useEffect(() => {
+    if (screen === 'start') {
+      setGameSceneReady(false);
+    } else {
+      setStartSceneReady(false);
+    }
+  }, [screen]);
 
   return (
     <div className="app-shell">
@@ -30,9 +44,19 @@ export default function App() {
         camera={{ fov: 46, near: 0.1, far: 90, position: [6, 5.2, 7.4] }}
         gl={{ antialias: true, powerPreference: 'high-performance' }}
       >
-        <Suspense fallback={null}>{screen === 'start' ? <StartScene3D /> : <GameScene />}</Suspense>
+        <Suspense fallback={null}>
+          {screen === 'start' ? <StartScene3D onReady={markStartSceneReady} /> : <GameScene onReady={markGameSceneReady} />}
+        </Suspense>
       </Canvas>
+      {startSceneReady ? <div className="scene-ready-marker" data-testid="start-scene-ready" aria-hidden="true" /> : null}
+      {gameSceneReady ? <div className="scene-ready-marker" data-testid="scene-ready" aria-hidden="true" /> : null}
       <div className="ui-layer">
+        {!currentSceneReady ? (
+          <div className="scene-loading-overlay panel" role="status">
+            <p className="eyebrow">Loading town scene</p>
+            <span>Setting up Dale Mart, streetlights, and questionable snack evidence...</span>
+          </div>
+        ) : null}
         <Suspense fallback={<LoadingOverlay />}>
           {screen === 'start' ? <StartMenu /> : <HUD />}
           {screen === 'playing' ? <MobileControls /> : null}

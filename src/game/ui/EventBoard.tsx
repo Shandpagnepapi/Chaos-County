@@ -15,7 +15,7 @@ export function EventBoard({ compact = false }: EventBoardProps) {
   const setActiveEvent = useGameStore((state) => state.setActiveEvent);
 
   return (
-    <section className={`event-board ${compact ? 'event-board-compact' : ''}`}>
+    <section className={`event-board ${compact ? 'event-board-compact' : ''}`} data-testid="event-board">
       <div className="event-board-heading">
         <p className="eyebrow">County Alert Board</p>
         <h2>Tonight's Algorithm Incidents</h2>

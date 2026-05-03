@@ -50,7 +50,7 @@ export function BlockyCharacter({
         <meshBasicMaterial color="#1a1110" transparent opacity={0.22} depthWrite={false} />
       </mesh>
       {name ? (
-        <Html center position={[0, 2.35, 0]} distanceFactor={11}>
+        <Html center position={[0, 2.35, 0]} distanceFactor={11} zIndexRange={[2, 0]}>
           <div className="world-label">
             {name}
             {title ? <span style={{ display: 'block', opacity: 0.72, fontSize: 8 }}>{title}</span> : null}

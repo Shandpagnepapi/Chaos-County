@@ -2,16 +2,78 @@ import { expect, type Page, type TestInfo, test } from '@playwright/test';
 
 const saveKey = 'chaos-county-3d-save-v2';
 
+interface PageDiagnostics {
+  assetFailures: string[];
+  consoleErrors: string[];
+}
+
+function watchPageDiagnostics(page: Page): PageDiagnostics {
+  const diagnostics: PageDiagnostics = {
+    assetFailures: [],
+    consoleErrors: []
+  };
+
+  page.on('response', (response) => {
+    const url = response.url();
+    const isGameAsset = /\/assets\/|\.glb($|\?)|\.gltf($|\?)|\.png($|\?)|\.jpg($|\?)/i.test(url);
+    if (isGameAsset && response.status() >= 400) {
+      diagnostics.assetFailures.push(`${response.status()} ${url}`);
+    }
+  });
+
+  page.on('console', (message) => {
+    const text = message.text();
+    const relevant = /webgl|gltf|glb|three|failed to load resource|404|could not load/i.test(text);
+    if (message.type() === 'error' && relevant) {
+      diagnostics.consoleErrors.push(text);
+    }
+  });
+
+  page.on('pageerror', (error) => {
+    diagnostics.consoleErrors.push(error.message);
+  });
+
+  return diagnostics;
+}
+
+async function expectCleanDiagnostics(diagnostics: PageDiagnostics, testInfo: TestInfo) {
+  const lines = [
+    ...diagnostics.assetFailures.map((failure) => `asset: ${failure}`),
+    ...diagnostics.consoleErrors.map((failure) => `console: ${failure}`)
+  ];
+
+  if (lines.length) {
+    await testInfo.attach('browser-diagnostics', {
+      body: lines.join('\n'),
+      contentType: 'text/plain'
+    });
+  }
+
+  expect(lines).toEqual([]);
+}
+
+async function waitForStableStartScene(page: Page) {
+  await expect(page.getByTestId('start-scene-ready')).toBeVisible({ timeout: 60_000 });
+  await page.waitForTimeout(750);
+}
+
+async function waitForStableGameScene(page: Page) {
+  await expect(page.getByTestId('scene-ready')).toBeVisible({ timeout: 60_000 });
+  await page.waitForTimeout(750);
+}
+
 async function openFreshStart(page: Page) {
   await page.addInitScript((key) => window.localStorage.removeItem(key), saveKey);
   await page.goto('/');
   await expect(page.getByTestId('start-screen')).toBeVisible();
+  await waitForStableStartScene(page);
 }
 
 async function startNewGame(page: Page) {
   await openFreshStart(page);
   await page.getByTestId('new-game-button').click();
   await expect(page.getByTestId('hud')).toBeVisible();
+  await waitForStableGameScene(page);
 }
 
 async function dismissIntroIfVisible(page: Page) {
@@ -25,29 +87,53 @@ async function dismissIntroIfVisible(page: Page) {
 
 async function attachScreenshot(page: Page, name: string, testInfo: TestInfo) {
   const path = testInfo.outputPath(`${testInfo.project.name}-${name}.png`);
-  await page.screenshot({ path, fullPage: true });
+  await page.screenshot({ path, fullPage: false });
   await testInfo.attach(name, { path, contentType: 'image/png' });
 }
 
-test('start screen loads', async ({ page }) => {
+async function expectMobileEventCardsDoNotOverlap(page: Page) {
+  const boxes = await page.getByTestId('event-board').locator('.event-card').evaluateAll((cards) =>
+    cards.map((card) => {
+      const rect = card.getBoundingClientRect();
+      return {
+        top: rect.top,
+        bottom: rect.bottom,
+        height: rect.height
+      };
+    })
+  );
+
+  for (let index = 0; index < boxes.length - 1; index += 1) {
+    expect(boxes[index].height).toBeGreaterThan(64);
+    expect(boxes[index].bottom).toBeLessThanOrEqual(boxes[index + 1].top + 1);
+  }
+}
+
+test('start screen loads', async ({ page }, testInfo) => {
+  const diagnostics = watchPageDiagnostics(page);
   await openFreshStart(page);
 
   await expect(page.getByText('Chaos County', { exact: true })).toBeVisible();
   await expect(page.getByTestId('start-screen')).toContainText('Gas Station Goblin Panic');
   await expect(page.getByTestId('start-game-button')).toBeVisible();
+  await expectCleanDiagnostics(diagnostics, testInfo);
 });
 
-test('starts a new game and shows core HUD', async ({ page }) => {
+test('starts a new game and shows core HUD', async ({ page }, testInfo) => {
+  const diagnostics = watchPageDiagnostics(page);
   await startNewGame(page);
 
   await expect(page.getByTestId('game-canvas')).toBeVisible();
+  await expect(page.getByTestId('scene-ready')).toBeVisible();
   await expect(page.getByTestId('event-banner')).toContainText('Gas Station Goblin Panic');
   await expect(page.getByTestId('coins-chip')).toBeVisible();
   await expect(page.getByTestId('snack-progress-chip')).toBeVisible();
+  await expectCleanDiagnostics(diagnostics, testInfo);
 });
 
 test('mobile layout smoke test', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'chromium-mobile', 'mobile-only layout check');
+  const diagnostics = watchPageDiagnostics(page);
 
   await startNewGame(page);
   await dismissIntroIfVisible(page);
@@ -63,9 +149,11 @@ test('mobile layout smoke test', async ({ page }, testInfo) => {
   expect(viewport).not.toBeNull();
   expect(hudTop).not.toBeNull();
   expect(hudTop!.height).toBeLessThan(viewport!.height * 0.35);
+  await expectCleanDiagnostics(diagnostics, testInfo);
 });
 
 test('basic NPC interaction smoke test', async ({ page }, testInfo) => {
+  const diagnostics = watchPageDiagnostics(page);
   await page.addInitScript((key) => {
     window.localStorage.setItem(
       key,
@@ -90,10 +178,12 @@ test('basic NPC interaction smoke test', async ({ page }, testInfo) => {
   }, saveKey);
 
   await page.goto('/');
+  await waitForStableStartScene(page);
   await page.getByTestId('start-game-button').click();
+  await waitForStableGameScene(page);
   await dismissIntroIfVisible(page);
 
-  await expect(page.getByText('Big Dale')).toBeVisible();
+  await expect(page.locator('.world-label').filter({ hasText: 'Gas Station Owner' }).first()).toBeVisible();
   if (testInfo.project.name === 'chromium-mobile') {
     await expect(page.getByTestId('mobile-interact-button')).toHaveText('Talk');
     await page.getByTestId('mobile-interact-button').click();
@@ -106,14 +196,26 @@ test('basic NPC interaction smoke test', async ({ page }, testInfo) => {
   }
 
   await expect(page.getByTestId('dialogue-box')).toContainText('Big Dale');
+  await expectCleanDiagnostics(diagnostics, testInfo);
 });
 
 test('captures desktop and mobile visual smoke screenshots', async ({ page }, testInfo) => {
+  const diagnostics = watchPageDiagnostics(page);
   await openFreshStart(page);
   await attachScreenshot(page, 'start-screen', testInfo);
 
   await page.getByTestId('new-game-button').click();
   await expect(page.getByTestId('hud')).toBeVisible();
+  await waitForStableGameScene(page);
   await dismissIntroIfVisible(page);
   await attachScreenshot(page, 'gameplay', testInfo);
+
+  if (testInfo.project.name === 'chromium-mobile') {
+    await page.getByTestId('bulletin-board-button').click();
+    await expect(page.getByTestId('event-board')).toBeVisible();
+    await expectMobileEventCardsDoNotOverlap(page);
+    await attachScreenshot(page, 'event-board', testInfo);
+  }
+
+  await expectCleanDiagnostics(diagnostics, testInfo);
 });

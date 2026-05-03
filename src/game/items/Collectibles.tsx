@@ -50,7 +50,7 @@ export function Collectibles() {
         );
       })}
       {floatingTexts.map((text) => (
-        <Html key={text.id} center position={text.position} distanceFactor={8}>
+        <Html key={text.id} center position={text.position} distanceFactor={8} zIndexRange={[2, 0]}>
           <div className={`floating-text floating-${text.tone ?? 'normal'}`}>{text.text}</div>
         </Html>
       ))}

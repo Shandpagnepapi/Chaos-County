@@ -25,7 +25,12 @@ export function WorldModels() {
               opacity={opacity}
             />
             {model.label ? (
-              <Html center position={[model.position[0], model.labelHeight ?? 2.4, model.position[2]]} distanceFactor={13}>
+              <Html
+                center
+                position={[model.position[0], model.labelHeight ?? 2.4, model.position[2]]}
+                distanceFactor={13}
+                zIndexRange={[2, 0]}
+              >
                 <div className="world-label">{model.label}</div>
               </Html>
             ) : null}

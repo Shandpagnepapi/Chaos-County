@@ -6,9 +6,14 @@ import { FollowCamera } from '../camera/FollowCamera';
 import { GuidanceMarker } from '../ui/GuidanceMarker';
 import { Player } from '../player/Player';
 import { useGameStore } from '../state/gameStore';
+import { SceneReadyProbe } from '../utils/SceneReadyProbe';
 import { WorldScene } from './WorldScene';
 
-export function GameScene() {
+interface GameSceneProps {
+  onReady: () => void;
+}
+
+export function GameScene({ onReady }: GameSceneProps) {
   const saveNow = useGameStore((state) => state.saveNow);
 
   useEffect(() => {
@@ -25,6 +30,7 @@ export function GameScene() {
       <Player />
       <CameraOrbitControls />
       <FollowCamera />
+      <SceneReadyProbe onReady={onReady} />
     </>
   );
 }

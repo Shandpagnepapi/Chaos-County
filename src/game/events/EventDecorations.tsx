@@ -357,7 +357,7 @@ export function EventDecorations() {
               <ringGeometry args={[zone.radius * 0.54, zone.radius * 0.66, 32]} />
               <meshBasicMaterial color={zone.markerColor} transparent opacity={nearestZoneId === zone.id ? 0.62 : 0.36} depthWrite={false} />
             </mesh>
-            <Html center position={[0, 0.8, 0]} distanceFactor={9}>
+            <Html center position={[0, 0.8, 0]} distanceFactor={9} zIndexRange={[2, 0]}>
               <div className={`world-label ${nearestZoneId === zone.id ? 'interaction-prompt' : ''}`}>
                 {nearestZoneId === zone.id ? zone.prompt : zone.label}
               </div>
