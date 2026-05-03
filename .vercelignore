@@ -1,0 +1,10 @@
+node_modules
+dist
+.vercel
+.edge-*
+
+*.log
+*.pid
+
+chaos-county*.png
+assets/raw/
