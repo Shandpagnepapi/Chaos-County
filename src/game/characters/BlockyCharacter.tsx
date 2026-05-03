@@ -2,7 +2,7 @@ import { Clone, Html, useGLTF } from '@react-three/drei';
 import { useEffect, useRef } from 'react';
 import type { Group, Mesh, Object3D } from 'three';
 import { MathUtils } from 'three';
-import { GoblinHat } from '../items/GoblinHat';
+import { EventCosmetic } from '../items/EventCosmetic';
 
 interface BlockyCharacterProps {
   model: string;
@@ -12,6 +12,7 @@ interface BlockyCharacterProps {
   name?: string;
   title?: string;
   showHat?: boolean;
+  cosmeticId?: string;
   scale?: number;
 }
 
@@ -23,6 +24,7 @@ export function BlockyCharacter({
   name,
   title,
   showHat = false,
+  cosmeticId,
   scale = 0.9
 }: BlockyCharacterProps) {
   const gltf = useGLTF(model);
@@ -42,7 +44,7 @@ export function BlockyCharacter({
     <group ref={groupRef} position={position} rotation={[0, rotationY, 0]} scale={scale}>
       <group position={[0, moving ? Math.sin(Date.now() * 0.016) * 0.03 : 0, 0]}>
         <Clone object={gltf.scene} />
-        {showHat ? <GoblinHat position={[0, 1.92, 0.01]} scale={0.62} /> : null}
+        <EventCosmetic cosmeticId={cosmeticId ?? (showHat ? 'goblin_hat' : undefined)} />
       </group>
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.018, 0]}>
         <circleGeometry args={[0.46, 24]} />

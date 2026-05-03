@@ -9,6 +9,7 @@ export function MobileControls() {
   const setMobileInput = useGameStore((state) => state.setMobileInput);
   const interact = useGameStore((state) => state.interact);
   const nearestNpcId = useGameStore((state) => state.nearestNpcId);
+  const nearestZoneId = useGameStore((state) => state.nearestZoneId);
 
   const updatePointer = (clientX: number, clientY: number) => {
     const element = joystickRef.current;
@@ -56,7 +57,7 @@ export function MobileControls() {
           style={{ transform: `translate(calc(-50% + ${knob.x}px), calc(-50% + ${knob.y}px))` }}
         />
       </div>
-      <button className="touch-interact" disabled={!nearestNpcId} onClick={interact}>
+      <button className="touch-interact" disabled={!nearestNpcId && !nearestZoneId} onClick={interact}>
         E
       </button>
     </div>

@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import type { Group } from 'three';
 import { MathUtils } from 'three';
 import { characterAssets } from '../config/assets';
+import { getEventConfig, type NpcId } from '../config/events';
 import { allColliders, npcs, type Vec2 } from '../config/world';
 import { BlockyCharacter, rotationFromVelocity } from '../characters/BlockyCharacter';
 import { useGameStore } from '../state/gameStore';
@@ -20,9 +21,15 @@ export function Player() {
   const playerPosition = useGameStore((state) => state.playerPosition);
   const setPlayerPosition = useGameStore((state) => state.setPlayerPosition);
   const setNearestNpc = useGameStore((state) => state.setNearestNpc);
+  const setNearestZone = useGameStore((state) => state.setNearestZone);
   const mobileInput = useGameStore((state) => state.mobileInput);
   const dialogue = useGameStore((state) => state.dialogue);
-  const goblinHatUnlocked = useGameStore((state) => state.goblinHatUnlocked);
+  const unlockedCosmetics = useGameStore((state) => state.unlockedCosmetics);
+  const activeEventId = useGameStore((state) => state.activeEventId);
+  const activeEvent = getEventConfig(activeEventId);
+  const cosmeticId = unlockedCosmetics.includes(activeEvent.reward.cosmetic)
+    ? activeEvent.reward.cosmetic
+    : unlockedCosmetics[unlockedCosmetics.length - 1];
 
   useFrame((_, delta) => {
     const group = groupRef.current;
@@ -61,14 +68,24 @@ export function Player() {
       setPlayerPosition(nextPosition);
     }
 
-    let nearest: { id: (typeof npcs)[number]['id']; distance: number } | undefined;
-    for (const npc of npcs) {
+    const event = getEventConfig(activeEventId);
+    let nearest: { id: NpcId; distance: number } | undefined;
+    for (const npc of [...npcs, ...event.eventNpcs]) {
       const distance = Math.hypot(npc.position.x - nextPosition.x, npc.position.z - nextPosition.z);
       if (distance < interactionDistance && (!nearest || distance < nearest.distance)) {
         nearest = { id: npc.id, distance };
       }
     }
     setNearestNpc(nearest?.id);
+
+    let nearestZone: { id: string; distance: number } | undefined;
+    for (const zone of event.interactionZones) {
+      const distance = Math.hypot(zone.position.x - nextPosition.x, zone.position.z - nextPosition.z);
+      if (distance < zone.radius && (!nearestZone || distance < nearestZone.distance)) {
+        nearestZone = { id: zone.id, distance };
+      }
+    }
+    setNearestZone(nearestZone?.id);
   });
 
   return (
@@ -78,7 +95,7 @@ export function Player() {
         position={[0, 0, 0]}
         rotationY={0}
         moving={movingRef.current}
-        showHat={goblinHatUnlocked}
+        cosmeticId={cosmeticId}
       />
     </group>
   );

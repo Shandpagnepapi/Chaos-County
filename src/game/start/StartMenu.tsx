@@ -1,18 +1,30 @@
 import { useState } from 'react';
+import { eventList, getEventConfig, type EventId } from '../config/events';
 import { useGameStore } from '../state/gameStore';
 
 export function StartMenu() {
   const [showCredits, setShowCredits] = useState(false);
   const hasExistingSave = useGameStore((state) => state.hasExistingSave);
   const startGame = useGameStore((state) => state.startGame);
+  const activeEventId = useGameStore((state) => state.activeEventId);
+  const setActiveEvent = useGameStore((state) => state.setActiveEvent);
+  const event = getEventConfig(activeEventId);
 
   return (
     <div className="start-ui panel">
-      <p className="eyebrow">Gas Station Goblin Panic</p>
+      <p className="eyebrow">{event.name}</p>
       <h1 className="title">Chaos County</h1>
-      <p className="subtitle">
-        A cozy-chaotic low-poly town trapped inside The Algorithm. Big Dale needs those snack bags back.
-      </p>
+      <p className="subtitle">{event.description}</p>
+      <label className="start-event-select">
+        <span>Test Event</span>
+        <select value={activeEventId} onChange={(changeEvent) => setActiveEvent(changeEvent.target.value as EventId)}>
+          {eventList.map((candidate) => (
+            <option key={candidate.id} value={candidate.id}>
+              {candidate.name}
+            </option>
+          ))}
+        </select>
+      </label>
       <div className="button-row">
         <button className="menu-button primary" onClick={() => startGame(hasExistingSave ? 'continue' : 'new')}>
           Start Game

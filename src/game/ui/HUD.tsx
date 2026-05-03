@@ -1,26 +1,65 @@
-import { gasStationGoblinPanic } from '../config/events';
-import { getQuestLine } from '../save/saveManager';
+import {
+  countCollectedType,
+  eventList,
+  getCollectibleDefinition,
+  getEventConfig,
+  type EventId,
+  type QuestStep
+} from '../config/events';
+import { createEventProgress, getQuestLine, type SaveData, type EventProgress } from '../save/saveManager';
 import { useGameStore } from '../state/gameStore';
 
+function getStepProgress(eventId: EventId, progress: EventProgress, step?: QuestStep): { current: number; total: number } {
+  const event = getEventConfig(eventId);
+  if (progress.status === 'completed') {
+    return { current: 1, total: 1 };
+  }
+
+  if (step?.type === 'collect') {
+    return {
+      current: countCollectedType(event, progress.collectedItemIds, step.collectibleType),
+      total: step.requiredCount
+    };
+  }
+
+  if (step?.type === 'interact') {
+    return {
+      current: step.zoneIds.filter((zoneId) => progress.completedZoneIds.includes(zoneId)).length,
+      total: step.requiredCount
+    };
+  }
+
+  return { current: 0, total: 1 };
+}
+
 export function HUD() {
+  const activeEventId = useGameStore((state) => state.activeEventId);
+  const setActiveEvent = useGameStore((state) => state.setActiveEvent);
   const coins = useGameStore((state) => state.coins);
-  const collectedItemIds = useGameStore((state) => state.collectedItemIds);
-  const questStatus = useGameStore((state) => state.questStatus);
-  const goblinHatUnlocked = useGameStore((state) => state.goblinHatUnlocked);
+  const progressByEvent = useGameStore((state) => state.progressByEvent);
+  const unlockedCosmetics = useGameStore((state) => state.unlockedCosmetics);
   const dialogue = useGameStore((state) => state.dialogue);
   const closeDialogue = useGameStore((state) => state.closeDialogue);
-  const rewardPanelVisible = useGameStore((state) => state.rewardPanelVisible);
+  const rewardPanel = useGameStore((state) => state.rewardPanel);
   const hideRewardPanel = useGameStore((state) => state.hideRewardPanel);
+  const chooseQuestOption = useGameStore((state) => state.chooseQuestOption);
 
-  const saveLike = {
-    version: 1 as const,
+  const event = getEventConfig(activeEventId);
+  const progress = progressByEvent[activeEventId] ?? createEventProgress();
+  const step = event.questSteps[progress.stepIndex];
+  const primaryDefinition = getCollectibleDefinition(event, event.primaryCollectibleType);
+  const primaryCount = countCollectedType(event, progress.collectedItemIds, event.primaryCollectibleType);
+  const stepProgress = getStepProgress(activeEventId, progress, step);
+  const progressPercent = Math.min(100, (stepProgress.current / Math.max(1, stepProgress.total)) * 100);
+
+  const saveLike: SaveData = {
+    version: 2,
+    activeEventId,
     playerPosition: useGameStore.getState().playerPosition,
     coins,
-    collectedItemIds,
-    snackBagsCollected: collectedItemIds.length,
-    questStatus,
-    questCompleted: questStatus === 'completed',
-    goblinHatUnlocked,
+    progressByEvent,
+    unlockedCosmetics,
+    earnedBadges: useGameStore.getState().earnedBadges,
     introCompleted: true
   };
 
@@ -29,7 +68,17 @@ export function HUD() {
       <div className="hud-top">
         <div className="event-banner panel">
           <strong>Active Event</strong>
-          <span>{gasStationGoblinPanic.hudBannerText}</span>
+          <span>{event.hudBannerText}</span>
+          <label className="dev-event-select">
+            <em>Dev event</em>
+            <select value={activeEventId} onChange={(eventChange) => setActiveEvent(eventChange.target.value as EventId)}>
+              {eventList.map((candidate) => (
+                <option key={candidate.id} value={candidate.id}>
+                  {candidate.name}
+                </option>
+              ))}
+            </select>
+          </label>
         </div>
         <div className="stat-stack">
           <div className="stat-card panel">
@@ -37,25 +86,39 @@ export function HUD() {
             <span>{coins}</span>
           </div>
           <div className="stat-card panel">
-            <b>Snacks</b>
+            <b>{primaryDefinition.pluralLabel}</b>
             <span>
-              {collectedItemIds.length}/{gasStationGoblinPanic.requiredCount}
+              {primaryCount}/{event.requiredCount}
             </span>
           </div>
           <div className="stat-card panel">
             <b>Inventory</b>
-            <span>{collectedItemIds.length + (goblinHatUnlocked ? 1 : 0)}</span>
+            <span>{progress.collectedItemIds.length + unlockedCosmetics.length}</span>
           </div>
         </div>
       </div>
 
       <div className="quest-card panel">
-        <h2>{gasStationGoblinPanic.name}</h2>
+        <h2>{event.name}</h2>
         <p>{getQuestLine(saveLike)}</p>
         <div className="progress-bar">
-          <div style={{ width: `${Math.min(100, (collectedItemIds.length / gasStationGoblinPanic.requiredCount) * 100)}%` }} />
+          <div style={{ width: `${progress.status === 'completed' ? 100 : progressPercent}%` }} />
         </div>
       </div>
+
+      {step?.type === 'choice' && progress.status !== 'completed' ? (
+        <div className="choice-panel panel">
+          <p className="eyebrow">Choice</p>
+          <h2>{step.prompt}</h2>
+          <div className="choice-list">
+            {step.choices.map((choice) => (
+              <button key={choice.id} onClick={() => chooseQuestOption(choice.id)}>
+                {choice.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      ) : null}
 
       {dialogue ? (
         <div className="dialogue-box panel">
@@ -65,14 +128,17 @@ export function HUD() {
         </div>
       ) : null}
 
-      {rewardPanelVisible ? (
+      {rewardPanel ? (
         <div className="reward-panel panel">
           <p className="eyebrow">Quest Complete</p>
-          <h2>Snack Shelves Saved</h2>
-          <p>You returned Big Dale&apos;s stolen snack bags and calmed the county for now.</p>
+          <h2>{rewardPanel.title}</h2>
+          <p>{rewardPanel.body}</p>
           <div className="reward-list">
-            <div className="reward-item">+100 coins</div>
-            <div className="reward-item">Goblin Hat unlocked</div>
+            {rewardPanel.rewards.map((reward) => (
+              <div className="reward-item" key={reward}>
+                {reward}
+              </div>
+            ))}
           </div>
           <button onClick={hideRewardPanel}>Nice</button>
         </div>

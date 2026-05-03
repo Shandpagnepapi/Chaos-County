@@ -1,3 +1,4 @@
+import { EventDecorations } from '../events/EventDecorations';
 import { Decorations } from './Decorations';
 import { Lighting } from './Lighting';
 import { RoadsAndGround } from './RoadsAndGround';
@@ -10,6 +11,7 @@ export function WorldScene() {
       <RoadsAndGround />
       <WorldModels />
       <Decorations />
+      <EventDecorations />
     </>
   );
 }

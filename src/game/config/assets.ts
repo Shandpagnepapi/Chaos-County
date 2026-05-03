@@ -8,7 +8,9 @@ export const characterAssets = {
   player: characterModel('character-a'),
   bigDale: characterModel('character-j'),
   tammy: characterModel('character-m'),
-  mayorBuck: characterModel('character-g')
+  mayorBuck: characterModel('character-g'),
+  chad: characterModel('character-c'),
+  raccoonRep: characterModel('character-r')
 } as const;
 
 export const worldAssets = {

@@ -99,6 +99,37 @@ button {
   gap: 10px;
 }
 
+.start-event-select,
+.dev-event-select {
+  display: grid;
+  gap: 7px;
+  color: #ffe9c4;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.start-event-select {
+  margin: 0 0 18px;
+}
+
+.start-event-select span,
+.dev-event-select em {
+  color: #ffd58e;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.start-event-select select,
+.dev-event-select select {
+  width: 100%;
+  border: 1px solid rgba(255, 231, 187, 0.28);
+  border-radius: 12px;
+  padding: 10px 12px;
+  color: #fff8e9;
+  background: rgba(37, 31, 30, 0.86);
+}
+
 .menu-button {
   min-width: 138px;
   border: 0;
@@ -178,6 +209,10 @@ button {
   font-weight: 800;
 }
 
+.dev-event-select {
+  margin-top: 10px;
+}
+
 .stat-stack {
   display: flex;
   gap: 10px;
@@ -248,6 +283,38 @@ button {
   padding: 18px 20px;
 }
 
+.choice-panel {
+  pointer-events: auto;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(460px, calc(100vw - 34px));
+  transform: translate(-50%, -50%);
+  padding: 22px;
+  text-align: center;
+}
+
+.choice-panel h2 {
+  margin: 0 0 16px;
+  color: #fff2d5;
+  font-size: 1.25rem;
+}
+
+.choice-list {
+  display: grid;
+  gap: 10px;
+}
+
+.choice-list button {
+  border: 0;
+  border-radius: 13px;
+  padding: 12px 14px;
+  color: #2c211d;
+  background: #ffd58e;
+  box-shadow: 0 8px 18px rgba(22, 14, 11, 0.2);
+  font-weight: 900;
+}
+
 .dialogue-box h3 {
   margin: 0 0 9px;
   color: #ffd58e;
@@ -314,6 +381,12 @@ button {
   font-weight: 900;
 }
 
+.rare-label {
+  border-color: rgba(170, 221, 255, 0.45);
+  color: #effaff;
+  background: rgba(38, 46, 60, 0.72);
+}
+
 .interaction-prompt {
   color: #2e211b;
   background: #ffd58e;
@@ -327,6 +400,17 @@ button {
   font-size: 17px;
   font-weight: 950;
   animation: float-up 1.35s ease-out forwards;
+}
+
+.floating-rare {
+  color: #c7efff;
+  text-shadow: 0 2px 0 #24445b;
+}
+
+.floating-reward {
+  color: #ffe58d;
+  text-shadow: 0 2px 0 #6a4427;
+  font-size: 20px;
 }
 
 @keyframes float-up {

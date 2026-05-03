@@ -3,11 +3,11 @@ import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import type { Group } from 'three';
 import { BlockyCharacter } from '../characters/BlockyCharacter';
-import { gasStationGoblinPanic } from '../config/events';
-import { npcs } from '../config/world';
+import { getEventConfig, type EventNpcConfig } from '../config/events';
+import { npcs, type NpcConfig } from '../config/world';
 import { useGameStore } from '../state/gameStore';
 
-function NPCActor({ npc }: { npc: (typeof npcs)[number] }) {
+function NPCActor({ npc }: { npc: NpcConfig | EventNpcConfig }) {
   const groupRef = useRef<Group>(null);
   const nearestNpcId = useGameStore((state) => state.nearestNpcId);
 
@@ -40,13 +40,17 @@ function NPCActor({ npc }: { npc: (typeof npcs)[number] }) {
 }
 
 export function NPCs() {
+  const activeEventId = useGameStore((state) => state.activeEventId);
+  const event = getEventConfig(activeEventId);
+  const activeNpcs = [...npcs, ...event.eventNpcs];
+
   return (
     <>
-      {npcs.map((npc) => (
+      {activeNpcs.map((npc) => (
         <NPCActor key={npc.id} npc={npc} />
       ))}
       <Html position={[-9.25, 2.6, -4.45]} center distanceFactor={13}>
-        <div className="world-label">{gasStationGoblinPanic.subtitle}</div>
+        <div className="world-label">{event.subtitle}</div>
       </Html>
     </>
   );

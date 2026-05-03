@@ -1,4 +1,5 @@
 import { characterAssets, worldAssets } from './assets';
+import type { NpcId } from './events';
 
 export interface Vec2 {
   x: number;
@@ -26,7 +27,7 @@ export interface WorldModel {
 }
 
 export interface NpcConfig {
-  id: 'big-dale' | 'tammy-two-phones' | 'mayor-buck';
+  id: NpcId;
   name: string;
   title: string;
   model: string;
