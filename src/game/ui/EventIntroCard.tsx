@@ -30,7 +30,7 @@ export function EventIntroCard() {
   };
 
   return (
-    <div className="intro-card panel">
+    <div className="intro-card panel" data-testid="event-intro-card">
       <p className="eyebrow">County Alert</p>
       <h2>{event.name}</h2>
       <p>{event.introLore}</p>
@@ -38,7 +38,7 @@ export function EventIntroCard() {
         <strong>First objective</strong>
         <span>{getQuestLine(saveLike)}</span>
       </div>
-      <button onClick={hideEventIntro}>Head Out</button>
+      <button data-testid="event-intro-dismiss" onClick={hideEventIntro}>Head Out</button>
     </div>
   );
 }

@@ -24,6 +24,7 @@ export default function App() {
     <div className="app-shell">
       <Canvas
         className="game-canvas"
+        data-testid="game-canvas"
         shadows
         dpr={[1, 1.75]}
         camera={{ fov: 46, near: 0.1, far: 90, position: [6, 5.2, 7.4] }}

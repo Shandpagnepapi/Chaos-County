@@ -37,10 +37,11 @@ export function MobileControls() {
   };
 
   return (
-    <div className="mobile-controls">
+    <div className="mobile-controls" data-testid="mobile-controls">
       <div
         ref={joystickRef}
         className="joystick"
+        data-testid="mobile-joystick"
         onPointerDown={(event) => {
           event.currentTarget.setPointerCapture(event.pointerId);
           updatePointer(event.clientX, event.clientY);
@@ -58,7 +59,7 @@ export function MobileControls() {
           style={{ transform: `translate(calc(-50% + ${knob.x}px), calc(-50% + ${knob.y}px))` }}
         />
       </div>
-      <button className="touch-interact" disabled={!nearestNpcId && !nearestZoneId} onClick={interact}>
+      <button className="touch-interact" data-testid="mobile-interact-button" disabled={!nearestNpcId && !nearestZoneId} onClick={interact}>
         {label}
       </button>
     </div>

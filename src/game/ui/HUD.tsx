@@ -65,21 +65,21 @@ export function HUD() {
   };
 
   return (
-    <div className="hud">
+    <div className="hud" data-testid="hud">
       <div className="hud-top">
-        <div className="event-banner panel">
+        <div className="event-banner panel" data-testid="event-banner">
           <strong>County Alert</strong>
           <span>{event.hudBannerText}</span>
-          <button className="mini-board-button" onClick={() => setPausePanel('event-board')}>
+          <button className="mini-board-button" data-testid="bulletin-board-button" onClick={() => setPausePanel('event-board')}>
             Board
           </button>
         </div>
         <div className="stat-stack">
-          <div className="stat-card stat-coins panel">
+          <div className="stat-card stat-coins panel" data-testid="coins-chip">
             <b>Coins</b>
             <span>{coins}</span>
           </div>
-          <div className="stat-card stat-primary panel">
+          <div className="stat-card stat-primary panel" data-testid="snack-progress-chip">
             <b>{primaryDefinition.label}</b>
             <span>
               {primaryCount}/{event.requiredCount}
@@ -92,7 +92,7 @@ export function HUD() {
         </div>
       </div>
 
-      <div className="quest-card panel">
+      <div className="quest-card panel" data-testid="quest-tracker">
         <h2>{event.name}</h2>
           <p>{getQuestLine(saveLike)}</p>
         <div className="progress-bar">
@@ -115,7 +115,7 @@ export function HUD() {
       ) : null}
 
       {dialogue ? (
-        <div className="dialogue-box panel">
+        <div className="dialogue-box panel" data-testid="dialogue-box">
           <h3>{dialogue.speaker}</h3>
           <p>{dialogue.text}</p>
           <button onClick={closeDialogue}>Continue</button>

@@ -35,7 +35,7 @@ function NPCActor({ npc }: { npc: NpcConfig | EventNpcConfig }) {
       />
       {nearestNpcId === npc.id ? (
         <Html center position={[0, 0.94, 0]} distanceFactor={8}>
-          <div className="world-label interaction-prompt">Talk</div>
+          <div className="world-label interaction-prompt" data-testid="npc-talk-prompt">Talk</div>
         </Html>
       ) : null}
     </group>

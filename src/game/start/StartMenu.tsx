@@ -11,7 +11,7 @@ export function StartMenu() {
   const event = getEventConfig(activeEventId);
 
   return (
-    <div className="start-layout">
+    <div className="start-layout" data-testid="start-screen">
       <div className="start-ui panel">
         <p className="eyebrow">{event.subtitle}</p>
         <h1 className="title">Chaos County</h1>
@@ -19,13 +19,17 @@ export function StartMenu() {
           A cozy-chaotic 3D county trapped inside The Algorithm. Tonight's selected alert: <strong>{event.name}</strong>.
         </p>
         <div className="button-row">
-          <button className="menu-button primary" onClick={() => startGame(hasExistingSave ? 'continue' : 'new')}>
+          <button
+            className="menu-button primary"
+            data-testid="start-game-button"
+            onClick={() => startGame(hasExistingSave ? 'continue' : 'new')}
+          >
             Start Game
           </button>
           <button className="menu-button" disabled={!hasExistingSave} onClick={() => startGame('continue')}>
             Continue
           </button>
-          <button className="menu-button" onClick={() => startGame('new')}>
+          <button className="menu-button" data-testid="new-game-button" onClick={() => startGame('new')}>
             New Game
           </button>
           <button className="menu-button ghost" onClick={() => setShowCredits((value) => !value)}>
