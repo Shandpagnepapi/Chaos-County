@@ -49,14 +49,14 @@ export function StartScene3D() {
 
   useFrame(({ camera, clock }) => {
     camera.position.set(
-      -8.2 + Math.sin(clock.elapsedTime * 0.18) * 0.5,
-      4.7 + Math.sin(clock.elapsedTime * 0.13) * 0.14,
-      8.4 + Math.cos(clock.elapsedTime * 0.16) * 0.45
+      -8.7 + Math.sin(clock.elapsedTime * 0.18) * 0.46,
+      4.25 + Math.sin(clock.elapsedTime * 0.13) * 0.12,
+      8.9 + Math.cos(clock.elapsedTime * 0.16) * 0.42
     );
-    camera.lookAt(-2.2, 1.0, -3.0);
+    camera.lookAt(-2.2, 0.72, -3.0);
 
     if (camera instanceof PerspectiveCamera) {
-      camera.fov = 45;
+      camera.fov = 48;
       camera.updateProjectionMatrix();
     }
 
@@ -81,8 +81,8 @@ export function StartScene3D() {
         <StaticModel src={worldAssets.treeSmall} position={[10.1, 0, -6.1]} scale={1.9} />
         <StaticModel src={worldAssets.treeLarge} position={[-11.4, 0, -1.4]} scale={2.15} />
         <StaticModel src={worldAssets.planter} position={[-2.0, 0, -3.9]} scale={1.7} />
-        <BlockyCharacter model={characterAssets.bigDale} position={[-7.4, 0, -2.2]} rotationY={Math.PI} scale={0.75} />
-        <BlockyCharacter model={characterAssets.tammy} position={[-1.2, 0, -2.8]} rotationY={-0.2} scale={0.72} />
+        <BlockyCharacter model={characterAssets.bigDale} position={[-7.4, 0, -2.2]} rotationY={Math.PI} scale={0.48} />
+        <BlockyCharacter model={characterAssets.tammy} position={[-1.2, 0, -2.8]} rotationY={-0.2} scale={0.47} />
         <mesh castShadow position={[-6.4, 0.34, -2.2]}>
           <boxGeometry args={[0.8, 0.42, 0.55]} />
           <meshStandardMaterial color="#c27b5e" roughness={0.58} />

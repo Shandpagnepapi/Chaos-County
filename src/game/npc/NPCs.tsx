@@ -28,11 +28,11 @@ function NPCActor({ npc }: { npc: NpcConfig | EventNpcConfig }) {
         rotationY={0}
         name={npc.name}
         title={npc.title}
-        scale={0.88}
+        scale={0.5}
       />
       {nearestNpcId === npc.id ? (
-        <Html center position={[0, 2.72, 0]} distanceFactor={8}>
-          <div className="world-label interaction-prompt">Press E / Tap</div>
+        <Html center position={[0, 1.28, 0]} distanceFactor={8}>
+          <div className="world-label interaction-prompt">Talk</div>
         </Html>
       ) : null}
     </group>
@@ -49,7 +49,7 @@ export function NPCs() {
       {activeNpcs.map((npc) => (
         <NPCActor key={npc.id} npc={npc} />
       ))}
-      <Html position={[-9.25, 2.6, -4.45]} center distanceFactor={13}>
+      <Html position={[-9.25, 2.25, -4.45]} center distanceFactor={13}>
         <div className="world-label">{event.subtitle}</div>
       </Html>
     </>

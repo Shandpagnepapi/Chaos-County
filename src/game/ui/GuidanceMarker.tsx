@@ -53,7 +53,7 @@ export function GuidanceMarker() {
     if (!ref.current) {
       return;
     }
-    ref.current.position.y = 1.7 + Math.sin(clock.elapsedTime * 3) * 0.12;
+    ref.current.position.y = 1.28 + Math.sin(clock.elapsedTime * 3) * 0.09;
     ref.current.rotation.y += 0.02;
   });
 
@@ -62,16 +62,16 @@ export function GuidanceMarker() {
   }
 
   return (
-    <group ref={ref} position={[target.position.x, 1.7, target.position.z]}>
+    <group ref={ref} position={[target.position.x, 1.28, target.position.z]}>
       <mesh castShadow rotation={[Math.PI, 0, 0]}>
         <coneGeometry args={[0.24, 0.48, 4]} />
         <meshStandardMaterial color="#ffd36f" emissive="#ff9f45" emissiveIntensity={0.25} roughness={0.45} />
       </mesh>
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.54, 0]}>
-        <ringGeometry args={[0.46, 0.58, 28]} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -1.14, 0]}>
+        <ringGeometry args={[0.38, 0.5, 28]} />
         <meshBasicMaterial color="#ffd36f" transparent opacity={0.34} depthWrite={false} />
       </mesh>
-      <Html center position={[0, 0.48, 0]} distanceFactor={9}>
+      <Html center position={[0, 0.38, 0]} distanceFactor={9}>
         <div className="world-label guide-label">Next: {target.label}</div>
       </Html>
     </group>

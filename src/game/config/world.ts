@@ -119,6 +119,38 @@ export const worldModels: WorldModel[] = [
     collider: { id: 'corner-home', x: 10.3, z: 6.6, width: 2.8, depth: 2.0 }
   },
   {
+    id: 'cedar-bungalow',
+    model: worldAssets.houseBungalow,
+    position: [-13.6, 0, 6.9],
+    rotationY: Math.PI / 2,
+    scale: 2.08,
+    collider: { id: 'cedar-bungalow', x: -13.6, z: 6.9, width: 2.2, depth: 2.55 }
+  },
+  {
+    id: 'alley-shop',
+    model: worldAssets.shopSmall,
+    position: [-15.0, 0, -6.6],
+    rotationY: Math.PI,
+    scale: 1.95,
+    fadeWhenOccluding: true,
+    collider: { id: 'alley-shop', x: -15.0, z: -6.6, width: 2.15, depth: 1.8 }
+  },
+  {
+    id: 'hazel-house',
+    model: worldAssets.housePorch,
+    position: [0.3, 0, 11.6],
+    scale: 2.05,
+    collider: { id: 'hazel-house', x: 0.3, z: 11.6, width: 2.4, depth: 1.8 }
+  },
+  {
+    id: 'garage-house',
+    model: worldAssets.houseGarage,
+    position: [14.1, 0, 8.8],
+    rotationY: -Math.PI / 2,
+    scale: 2.05,
+    collider: { id: 'garage-house', x: 14.1, z: 8.8, width: 2.2, depth: 2.45 }
+  },
+  {
     id: 'duplex',
     model: worldAssets.houseD,
     position: [14.2, 0, -4.1],
@@ -157,18 +189,37 @@ export const worldModels: WorldModel[] = [
     position: [-13.8, 0, 0.6],
     scale: 2.3,
     collider: { id: 'fence-low-gas', x: -13.8, z: 0.6, width: 2.2, depth: 0.45 }
+  },
+  {
+    id: 'fence-yard-west',
+    model: worldAssets.fenceMedium,
+    position: [-12.0, 0, 9.8],
+    rotationY: Math.PI / 2,
+    scale: 2.1,
+    collider: { id: 'fence-yard-west', x: -12.0, z: 9.8, width: 0.55, depth: 2.9 }
+  },
+  {
+    id: 'fence-yard-east',
+    model: worldAssets.fenceShort,
+    position: [12.7, 0, 10.5],
+    scale: 2.0,
+    collider: { id: 'fence-yard-east', x: 12.7, z: 10.5, width: 2.25, depth: 0.5 }
   }
 ];
 
 export const groundDecor: WorldModel[] = [
-  { id: 'driveway-gas', model: worldAssets.drivewayLong, position: [-10.8, 0.015, -3.8], scale: 2.6 },
-  { id: 'driveway-storage', model: worldAssets.drivewayShort, position: [-6.9, 0.015, -3.4], scale: 2.2 },
-  { id: 'path-maple', model: worldAssets.pathShort, position: [-3.4, 0.018, -5.9], scale: 1.8 },
-  { id: 'path-juniper', model: worldAssets.pathShort, position: [2.5, 0.018, -6.0], scale: 1.8 },
-  { id: 'path-town-hall', model: worldAssets.pathLong, position: [9.8, 0.018, -4.8], scale: 2.0 },
-  { id: 'path-tammy', model: worldAssets.stonesLong, position: [-2.7, 0.018, 5.0], scale: 2.0 },
-  { id: 'path-solar', model: worldAssets.pathShort, position: [4.8, 0.018, 5.4], scale: 1.8 },
-  { id: 'path-corner', model: worldAssets.stonesMessy, position: [10.3, 0.018, 4.2], scale: 1.8 }
+  { id: 'driveway-gas', model: worldAssets.drivewayLong, position: [-10.8, 0.07, -3.8], scale: 2.6 },
+  { id: 'driveway-storage', model: worldAssets.drivewayShort, position: [-6.9, 0.07, -3.4], scale: 2.2 },
+  { id: 'path-maple', model: worldAssets.pathShort, position: [-3.4, 0.065, -5.9], scale: 1.8 },
+  { id: 'path-juniper', model: worldAssets.pathShort, position: [2.5, 0.065, -6.0], scale: 1.8 },
+  { id: 'path-town-hall', model: worldAssets.pathLong, position: [9.8, 0.065, -4.8], scale: 2.0 },
+  { id: 'path-tammy', model: worldAssets.stonesLong, position: [-2.7, 0.065, 5.0], scale: 2.0 },
+  { id: 'path-solar', model: worldAssets.pathShort, position: [4.8, 0.065, 5.4], scale: 1.8 },
+  { id: 'path-corner', model: worldAssets.stonesMessy, position: [10.3, 0.065, 4.2], scale: 1.8 },
+  { id: 'path-cedar', model: worldAssets.pathShort, position: [-13.0, 0.065, 4.35], rotationY: Math.PI / 2, scale: 1.8 },
+  { id: 'path-hazel', model: worldAssets.stonesShort, position: [0.3, 0.065, 9.6], scale: 1.6 },
+  { id: 'driveway-garage', model: worldAssets.drivewayShort, position: [12.2, 0.07, 8.8], rotationY: Math.PI / 2, scale: 2.0 },
+  { id: 'alley-stones', model: worldAssets.stonesMessy, position: [-13.7, 0.065, -3.65], rotationY: -0.2, scale: 1.5 }
 ];
 
 export const treeDecor: WorldModel[] = [
@@ -178,9 +229,14 @@ export const treeDecor: WorldModel[] = [
   { id: 'tree-d', model: worldAssets.treeSmall, position: [15.6, 0, -9.8], scale: 1.9, collider: { id: 'tree-d', x: 15.6, z: -9.8, width: 0.7, depth: 0.7 } },
   { id: 'tree-e', model: worldAssets.treeLarge, position: [-15.8, 0, 9.6], scale: 2.1, collider: { id: 'tree-e', x: -15.8, z: 9.6, width: 0.8, depth: 0.8 } },
   { id: 'tree-f', model: worldAssets.treeSmall, position: [15.2, 0, 10.2], scale: 1.9, collider: { id: 'tree-f', x: 15.2, z: 10.2, width: 0.7, depth: 0.7 } },
+  { id: 'tree-g', model: worldAssets.treeSmall, position: [-12.2, 0, 11.8], scale: 1.75, collider: { id: 'tree-g', x: -12.2, z: 11.8, width: 0.65, depth: 0.65 } },
+  { id: 'tree-h', model: worldAssets.treeLarge, position: [1.9, 0, 12.7], scale: 1.95, collider: { id: 'tree-h', x: 1.9, z: 12.7, width: 0.8, depth: 0.8 } },
+  { id: 'tree-i', model: worldAssets.treeSmall, position: [12.4, 0, 10.9], scale: 1.7, collider: { id: 'tree-i', x: 12.4, z: 10.9, width: 0.65, depth: 0.65 } },
   { id: 'planter-a', model: worldAssets.planter, position: [-4.9, 0, -6.5], scale: 1.7, collider: { id: 'planter-a', x: -4.9, z: -6.5, width: 0.8, depth: 0.55 } },
   { id: 'planter-b', model: worldAssets.planter, position: [6.0, 0, 7.3], scale: 1.7, collider: { id: 'planter-b', x: 6.0, z: 7.3, width: 0.8, depth: 0.55 } },
-  { id: 'planter-c', model: worldAssets.planter, position: [12.4, 0, -5.1], scale: 1.7, collider: { id: 'planter-c', x: 12.4, z: -5.1, width: 0.8, depth: 0.55 } }
+  { id: 'planter-c', model: worldAssets.planter, position: [12.4, 0, -5.1], scale: 1.7, collider: { id: 'planter-c', x: 12.4, z: -5.1, width: 0.8, depth: 0.55 } },
+  { id: 'planter-d', model: worldAssets.planter, position: [-9.0, 0, -5.1], scale: 1.55, collider: { id: 'planter-d', x: -9.0, z: -5.1, width: 0.75, depth: 0.5 } },
+  { id: 'planter-e', model: worldAssets.planter, position: [-12.6, 0, 6.0], scale: 1.55, collider: { id: 'planter-e', x: -12.6, z: 6.0, width: 0.75, depth: 0.5 } }
 ];
 
 export const allColliders: RectCollider[] = [...worldModels, ...treeDecor]
@@ -209,7 +265,7 @@ export const npcs: NpcConfig[] = [
     position: { x: -9.1, z: -2.5 },
     rotationY: Math.PI,
     dialogue:
-      'I know three things: gas prices, snack margins, and when The Algorithm is about to make my Tuesday legally interesting.'
+      'I know three things: gas prices, snack margins, and when The Algorithm is about to make my Tuesday legally interesting. If the streetlights blink twice, I start labeling shelves by emotional risk.'
   },
   {
     id: 'tammy-two-phones',
@@ -219,7 +275,7 @@ export const npcs: NpcConfig[] = [
     position: { x: -1.0, z: 4.8 },
     rotationY: -0.4,
     dialogue:
-      'My left phone tracks rumors. My right phone tracks rumors about the rumors. Chaos County is basically a weather system with comments.'
+      'My left phone tracks rumors. My right phone tracks rumors about the rumors. Chaos County is basically a weather system with comments, and I am the only person brave enough to refresh during thunder.'
   },
   {
     id: 'mayor-buck',
@@ -229,6 +285,6 @@ export const npcs: NpcConfig[] = [
     position: { x: 9.7, z: -4.3 },
     rotationY: Math.PI,
     dialogue:
-      'Everything is under control. We have a clipboard, a sunset, and several official explanations for things no one understands.'
+      'Everything is under control. We have a clipboard, a sunset, and several official explanations for things no one understands. The Algorithm has not filed the correct permit, which I consider progress.'
   }
 ];

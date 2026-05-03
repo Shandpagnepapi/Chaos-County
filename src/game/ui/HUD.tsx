@@ -71,7 +71,7 @@ export function HUD() {
           <strong>County Alert</strong>
           <span>{event.hudBannerText}</span>
           <button className="mini-board-button" onClick={() => setPausePanel('event-board')}>
-            Open Bulletin Board
+            Bulletin Board
           </button>
         </div>
         <div className="stat-stack">
